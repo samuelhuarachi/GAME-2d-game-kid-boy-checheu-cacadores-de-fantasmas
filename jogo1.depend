@@ -1,0 +1,435 @@
+# depslib dependency file v1.0
+1664502453 source:c:\users\samuel gomes\desktop\jogos\jogo1\main.cpp
+	<allegro5/allegro.h>
+	<allegro5/allegro_native_dialog.h>
+	<allegro5/allegro_font.h>
+	<allegro5/allegro_image.h>
+	<allegro5/allegro_primitives.h>
+	<allegro5/allegro_audio.h>
+	<allegro5/allegro_acodec.h>
+	<stdio.h>
+	<stdlib.h>
+	<typeinfo>
+	<iostream>
+	<fstream>
+	<string>
+	<vector>
+	<algorithm>
+	<limits>
+	<math.h>
+	<array>
+	<iterator>
+	"global_variables.cpp"
+	"clouds.cpp"
+	"ghosts.cpp"
+	"personagem.cpp"
+	"floor.cpp"
+	"functions.h"
+	"introduction.cpp"
+
+1372628331 c:\users\samuel gomes\desktop\allegro-5.0.10-mingw-4.7.0\allegro-5.0.10-mingw-4.7.0\include\allegro5\allegro.h
+	"allegro5/base.h"
+	"allegro5/altime.h"
+	"allegro5/bitmap.h"
+	"allegro5/bitmap_draw.h"
+	"allegro5/bitmap_io.h"
+	"allegro5/bitmap_lock.h"
+	"allegro5/blender.h"
+	"allegro5/color.h"
+	"allegro5/config.h"
+	"allegro5/debug.h"
+	"allegro5/display.h"
+	"allegro5/drawing.h"
+	"allegro5/error.h"
+	"allegro5/events.h"
+	"allegro5/file.h"
+	"allegro5/fixed.h"
+	"allegro5/fmaths.h"
+	"allegro5/fshook.h"
+	"allegro5/fullscreen_mode.h"
+	"allegro5/joystick.h"
+	"allegro5/keyboard.h"
+	"allegro5/memory.h"
+	"allegro5/monitor.h"
+	"allegro5/mouse.h"
+	"allegro5/mouse_cursor.h"
+	"allegro5/path.h"
+	"allegro5/system.h"
+	"allegro5/threads.h"
+	"allegro5/timer.h"
+	"allegro5/tls.h"
+	"allegro5/transformations.h"
+	"allegro5/utf8.h"
+	"allegro5/alcompat.h"
+
+1372628331 c:\users\samuel gomes\desktop\allegro-5.0.10-mingw-4.7.0\allegro-5.0.10-mingw-4.7.0\include\allegro5\base.h
+	<errno.h>
+	<limits.h>
+	<limits.h>
+	<stdarg.h>
+	<stddef.h>
+	<stdlib.h>
+	<time.h>
+	<string.h>
+	<sys/types.h>
+	<fortify/fortify.h>
+	<dmalloc.h>
+	"allegro5/internal/alconfig.h"
+
+1372628331 c:\users\samuel gomes\desktop\allegro-5.0.10-mingw-4.7.0\allegro-5.0.10-mingw-4.7.0\include\allegro5\internal\alconfig.h
+	"allegro5/platform/alplatf.h"
+	"allegro5/platform/alwatcom.h"
+	"allegro5/platform/almngw32.h"
+	"allegro5/platform/albcc32.h"
+	"allegro5/platform/almsvc.h"
+	"allegro5/platform/aliphonecfg.h"
+	"allegro5/platform/alosxcfg.h"
+	"allegro5/platform/alucfg.h"
+	"allegro5/platform/astdint.h"
+	"allegro5/platform/astdbool.h"
+
+1372629528 c:\users\samuel gomes\desktop\allegro-5.0.10-mingw-4.7.0\allegro-5.0.10-mingw-4.7.0\include\allegro5\platform\alplatf.h
+
+1368969907 c:\users\samuel gomes\desktop\allegro-5.0.10-mingw-4.7.0\allegro-5.0.10-mingw-4.7.0\include\allegro5\platform\alwatcom.h
+	<io.h>
+	<i86.h>
+	<conio.h>
+	<fcntl.h>
+	<direct.h>
+	<malloc.h>
+
+1368969907 c:\users\samuel gomes\desktop\allegro-5.0.10-mingw-4.7.0\allegro-5.0.10-mingw-4.7.0\include\allegro5\platform\almngw32.h
+	<io.h>
+	<fcntl.h>
+	<direct.h>
+	<malloc.h>
+	"allegro5/platform/alplatf.h"
+
+1368969907 c:\users\samuel gomes\desktop\allegro-5.0.10-mingw-4.7.0\allegro-5.0.10-mingw-4.7.0\include\allegro5\platform\albcc32.h
+	<io.h>
+	<fcntl.h>
+	<direct.h>
+	<malloc.h>
+
+1368969907 c:\users\samuel gomes\desktop\allegro-5.0.10-mingw-4.7.0\allegro-5.0.10-mingw-4.7.0\include\allegro5\platform\almsvc.h
+	<io.h>
+	<fcntl.h>
+	<direct.h>
+	<malloc.h>
+	"allegro5/platform/alplatf.h"
+
+1362327500 c:\users\samuel gomes\desktop\allegro-5.0.10-mingw-4.7.0\allegro-5.0.10-mingw-4.7.0\include\allegro5\platform\aliphonecfg.h
+	<fcntl.h>
+	<unistd.h>
+
+1368969907 c:\users\samuel gomes\desktop\allegro-5.0.10-mingw-4.7.0\allegro-5.0.10-mingw-4.7.0\include\allegro5\platform\alosxcfg.h
+	"allegro5/platform/alplatf.h"
+
+1368969907 c:\users\samuel gomes\desktop\allegro-5.0.10-mingw-4.7.0\allegro-5.0.10-mingw-4.7.0\include\allegro5\platform\alucfg.h
+	<fcntl.h>
+	<unistd.h>
+	"alunix.h"
+	"allegro5/platform/alplatf.h"
+
+1362327500 c:\users\samuel gomes\desktop\allegro-5.0.10-mingw-4.7.0\allegro-5.0.10-mingw-4.7.0\include\allegro5\platform\alunix.h
+
+1362327500 c:\users\samuel gomes\desktop\allegro-5.0.10-mingw-4.7.0\allegro-5.0.10-mingw-4.7.0\include\allegro5\platform\astdint.h
+	<inttypes.h>
+	<stdint.h>
+
+1362327500 c:\users\samuel gomes\desktop\allegro-5.0.10-mingw-4.7.0\allegro-5.0.10-mingw-4.7.0\include\allegro5\platform\astdbool.h
+	<stdbool.h>
+
+1362327500 c:\users\samuel gomes\desktop\allegro-5.0.10-mingw-4.7.0\allegro-5.0.10-mingw-4.7.0\include\allegro5\altime.h
+	"allegro5/base.h"
+
+1372628331 c:\users\samuel gomes\desktop\allegro-5.0.10-mingw-4.7.0\allegro-5.0.10-mingw-4.7.0\include\allegro5\bitmap.h
+	"allegro5/color.h"
+
+1372628331 c:\users\samuel gomes\desktop\allegro-5.0.10-mingw-4.7.0\allegro-5.0.10-mingw-4.7.0\include\allegro5\color.h
+	"allegro5/base.h"
+
+1362327500 c:\users\samuel gomes\desktop\allegro-5.0.10-mingw-4.7.0\allegro-5.0.10-mingw-4.7.0\include\allegro5\bitmap_draw.h
+	"allegro5/bitmap.h"
+
+1372628331 c:\users\samuel gomes\desktop\allegro-5.0.10-mingw-4.7.0\allegro-5.0.10-mingw-4.7.0\include\allegro5\bitmap_io.h
+	"allegro5/bitmap.h"
+	"allegro5/file.h"
+
+1362327500 c:\users\samuel gomes\desktop\allegro-5.0.10-mingw-4.7.0\allegro-5.0.10-mingw-4.7.0\include\allegro5\file.h
+	"allegro5/base.h"
+	"allegro5/path.h"
+	"allegro5/utf8.h"
+
+1362327500 c:\users\samuel gomes\desktop\allegro-5.0.10-mingw-4.7.0\allegro-5.0.10-mingw-4.7.0\include\allegro5\path.h
+	"allegro5/base.h"
+
+1362327500 c:\users\samuel gomes\desktop\allegro-5.0.10-mingw-4.7.0\allegro-5.0.10-mingw-4.7.0\include\allegro5\utf8.h
+	"allegro5/base.h"
+
+1362327500 c:\users\samuel gomes\desktop\allegro-5.0.10-mingw-4.7.0\allegro-5.0.10-mingw-4.7.0\include\allegro5\bitmap_lock.h
+	"allegro5/bitmap.h"
+
+1372628283 c:\users\samuel gomes\desktop\allegro-5.0.10-mingw-4.7.0\allegro-5.0.10-mingw-4.7.0\include\allegro5\blender.h
+
+1372628331 c:\users\samuel gomes\desktop\allegro-5.0.10-mingw-4.7.0\allegro-5.0.10-mingw-4.7.0\include\allegro5\config.h
+	"allegro5/file.h"
+
+1372628331 c:\users\samuel gomes\desktop\allegro-5.0.10-mingw-4.7.0\allegro-5.0.10-mingw-4.7.0\include\allegro5\debug.h
+	<assert.h>
+	"allegro5/base.h"
+
+1372628331 c:\users\samuel gomes\desktop\allegro-5.0.10-mingw-4.7.0\allegro-5.0.10-mingw-4.7.0\include\allegro5\display.h
+	"allegro5/bitmap.h"
+	"allegro5/color.h"
+	"allegro5/events.h"
+
+1372628331 c:\users\samuel gomes\desktop\allegro-5.0.10-mingw-4.7.0\allegro-5.0.10-mingw-4.7.0\include\allegro5\events.h
+	"allegro5/altime.h"
+
+1372628331 c:\users\samuel gomes\desktop\allegro-5.0.10-mingw-4.7.0\allegro-5.0.10-mingw-4.7.0\include\allegro5\drawing.h
+	"allegro5/color.h"
+
+1362327500 c:\users\samuel gomes\desktop\allegro-5.0.10-mingw-4.7.0\allegro-5.0.10-mingw-4.7.0\include\allegro5\error.h
+	"allegro5/base.h"
+
+1362327500 c:\users\samuel gomes\desktop\allegro-5.0.10-mingw-4.7.0\allegro-5.0.10-mingw-4.7.0\include\allegro5\fixed.h
+	"allegro5/base.h"
+
+1362327500 c:\users\samuel gomes\desktop\allegro-5.0.10-mingw-4.7.0\allegro-5.0.10-mingw-4.7.0\include\allegro5\fmaths.h
+	"allegro5/base.h"
+	"allegro5/fixed.h"
+	"allegro5/inline/fmaths.inl"
+
+1368969907 c:\users\samuel gomes\desktop\allegro-5.0.10-mingw-4.7.0\allegro-5.0.10-mingw-4.7.0\include\allegro5\inline\fmaths.inl
+	"allegro5/error.h"
+
+1362327500 c:\users\samuel gomes\desktop\allegro-5.0.10-mingw-4.7.0\allegro-5.0.10-mingw-4.7.0\include\allegro5\fshook.h
+	"allegro5/base.h"
+	"allegro5/file.h"
+	"allegro5/path.h"
+	<sys/types.h>
+
+1362327500 c:\users\samuel gomes\desktop\allegro-5.0.10-mingw-4.7.0\allegro-5.0.10-mingw-4.7.0\include\allegro5\fullscreen_mode.h
+
+1372628331 c:\users\samuel gomes\desktop\allegro-5.0.10-mingw-4.7.0\allegro-5.0.10-mingw-4.7.0\include\allegro5\joystick.h
+	"allegro5/base.h"
+	"allegro5/events.h"
+
+1362327500 c:\users\samuel gomes\desktop\allegro-5.0.10-mingw-4.7.0\allegro-5.0.10-mingw-4.7.0\include\allegro5\keyboard.h
+	"allegro5/base.h"
+	"allegro5/events.h"
+	"allegro5/keycodes.h"
+
+1372628331 c:\users\samuel gomes\desktop\allegro-5.0.10-mingw-4.7.0\allegro-5.0.10-mingw-4.7.0\include\allegro5\keycodes.h
+
+1362327500 c:\users\samuel gomes\desktop\allegro-5.0.10-mingw-4.7.0\allegro-5.0.10-mingw-4.7.0\include\allegro5\memory.h
+
+1362327500 c:\users\samuel gomes\desktop\allegro-5.0.10-mingw-4.7.0\allegro-5.0.10-mingw-4.7.0\include\allegro5\monitor.h
+
+1362327500 c:\users\samuel gomes\desktop\allegro-5.0.10-mingw-4.7.0\allegro-5.0.10-mingw-4.7.0\include\allegro5\mouse.h
+	"allegro5/base.h"
+	"allegro5/events.h"
+
+1362327500 c:\users\samuel gomes\desktop\allegro-5.0.10-mingw-4.7.0\allegro-5.0.10-mingw-4.7.0\include\allegro5\mouse_cursor.h
+	"allegro5/base.h"
+
+1362327500 c:\users\samuel gomes\desktop\allegro-5.0.10-mingw-4.7.0\allegro-5.0.10-mingw-4.7.0\include\allegro5\system.h
+	"allegro5/config.h"
+	"allegro5/path.h"
+
+1362327500 c:\users\samuel gomes\desktop\allegro-5.0.10-mingw-4.7.0\allegro-5.0.10-mingw-4.7.0\include\allegro5\threads.h
+	"allegro5/altime.h"
+
+1362327500 c:\users\samuel gomes\desktop\allegro-5.0.10-mingw-4.7.0\allegro-5.0.10-mingw-4.7.0\include\allegro5\timer.h
+	"allegro5/base.h"
+
+1362327500 c:\users\samuel gomes\desktop\allegro-5.0.10-mingw-4.7.0\allegro-5.0.10-mingw-4.7.0\include\allegro5\tls.h
+	"allegro5/base.h"
+
+1372628331 c:\users\samuel gomes\desktop\allegro-5.0.10-mingw-4.7.0\allegro-5.0.10-mingw-4.7.0\include\allegro5\transformations.h
+	"allegro5/display.h"
+
+1372628331 c:\users\samuel gomes\desktop\allegro-5.0.10-mingw-4.7.0\allegro-5.0.10-mingw-4.7.0\include\allegro5\alcompat.h
+
+1372628331 c:\users\samuel gomes\desktop\allegro-5.0.10-mingw-4.7.0\allegro-5.0.10-mingw-4.7.0\include\allegro5\allegro_native_dialog.h
+	"allegro5/allegro.h"
+
+1372628331 c:\users\samuel gomes\desktop\allegro-5.0.10-mingw-4.7.0\allegro-5.0.10-mingw-4.7.0\include\allegro5\allegro_font.h
+	"allegro5/allegro.h"
+
+1362327499 c:\users\samuel gomes\desktop\allegro-5.0.10-mingw-4.7.0\allegro-5.0.10-mingw-4.7.0\include\allegro5\allegro_image.h
+
+1372628331 c:\users\samuel gomes\desktop\allegro-5.0.10-mingw-4.7.0\allegro-5.0.10-mingw-4.7.0\include\allegro5\allegro_primitives.h
+	<allegro5/allegro.h>
+
+1631046725 c:\users\samuel gomes\desktop\jogos\jogo1\functions.h
+
+1630637943 c:\users\samuel gomes\desktop\jogos\jogo1\include\functions2.h
+
+1630638032 source:c:\users\samuel gomes\desktop\jogos\jogo1\src\functions2.cpp
+	"functions2.h"
+	<allegro5/allegro.h>
+	<stdio.h>
+
+1631046709 source:c:\users\samuel gomes\desktop\jogos\jogo1\functions.cpp
+	"functions.h"
+	<stdio.h>
+	<allegro5/allegro.h>
+
+1630967859 source:c:\users\samuel gomes\desktop\jogos\jogo1\src\avatar.cpp
+	"Avatar.h"
+
+1630967807 c:\users\samuel gomes\desktop\jogos\jogo1\include\avatar.h
+
+1631017087 source:c:\users\samuel gomes\desktop\jogos\jogo1\src\teste.cpp
+	"teste.h"
+	<stdio.h>
+
+1631017118 c:\users\samuel gomes\desktop\jogos\jogo1\include\teste.h
+
+1631018944 source:c:\users\samuel gomes\desktop\jogos\jogo1\src\person.cpp
+	"person.h"
+	<stdio.h>
+
+1631018940 c:\users\samuel gomes\desktop\jogos\jogo1\include\person.h
+
+1664502307 c:\users\samuel gomes\desktop\jogos\jogo1\personagem.cpp
+
+1664500799 c:\users\samuel gomes\desktop\jogos\jogo1\global_variables.cpp
+
+1634179638 c:\users\samuel gomes\desktop\jogos\jogo1\floor.cpp
+
+1372628331 c:\users\samuel gomes\desktop\allegro-5.0.10-mingw-4.7.0\allegro-5.0.10-mingw-4.7.0\include\allegro5\allegro_audio.h
+	"allegro5/allegro.h"
+
+1633649104 c:\users\samuel gomes\desktop\jogos\jogo1\introduction.cpp
+
+1362327499 c:\users\samuel gomes\desktop\allegro-5.0.10-mingw-4.7.0\allegro-5.0.10-mingw-4.7.0\include\allegro5\allegro_acodec.h
+	"allegro5/allegro.h"
+	"allegro5/allegro_audio.h"
+
+1631501030 c:\users\samuel gomes\desktop\jogos\jogo1\clouds.cpp
+
+1631502165 c:\users\samuel gomes\desktop\jogos\jogo1\ghosts.cpp
+
+1631046709 source:c:\users\samuel gomes\desktop\jogos\kid boy checheu game 2d\functions.cpp
+	"functions.h"
+	<stdio.h>
+	<allegro5/allegro.h>
+
+1631046725 c:\users\samuel gomes\desktop\jogos\kid boy checheu game 2d\functions.h
+
+1664503248 source:c:\users\samuel gomes\desktop\jogos\kid boy checheu game 2d\main.cpp
+	<allegro5/allegro.h>
+	<allegro5/allegro_native_dialog.h>
+	<allegro5/allegro_font.h>
+	<allegro5/allegro_image.h>
+	<allegro5/allegro_primitives.h>
+	<allegro5/allegro_audio.h>
+	<allegro5/allegro_acodec.h>
+	<stdio.h>
+	<stdlib.h>
+	<typeinfo>
+	<iostream>
+	<fstream>
+	<string>
+	<vector>
+	<algorithm>
+	<limits>
+	<math.h>
+	<array>
+	<iterator>
+	"global_variables.cpp"
+	"clouds.cpp"
+	"ghosts.cpp"
+	"personagem.cpp"
+	"floor.cpp"
+	"functions.h"
+	"introduction.cpp"
+
+1664503085 c:\users\samuel gomes\desktop\jogos\kid boy checheu game 2d\global_variables.cpp
+
+1631501030 c:\users\samuel gomes\desktop\jogos\kid boy checheu game 2d\clouds.cpp
+
+1631502165 c:\users\samuel gomes\desktop\jogos\kid boy checheu game 2d\ghosts.cpp
+
+1664502307 c:\users\samuel gomes\desktop\jogos\kid boy checheu game 2d\personagem.cpp
+
+1634179638 c:\users\samuel gomes\desktop\jogos\kid boy checheu game 2d\floor.cpp
+
+1633649104 c:\users\samuel gomes\desktop\jogos\kid boy checheu game 2d\introduction.cpp
+
+1631018944 source:c:\users\samuel gomes\desktop\jogos\kid boy checheu game 2d\src\person.cpp
+	"person.h"
+	<stdio.h>
+
+1631018940 c:\users\samuel gomes\desktop\jogos\kid boy checheu game 2d\include\person.h
+
+1631017087 source:c:\users\samuel gomes\desktop\jogos\kid boy checheu game 2d\src\teste.cpp
+	"teste.h"
+	<stdio.h>
+
+1631017118 c:\users\samuel gomes\desktop\jogos\kid boy checheu game 2d\include\teste.h
+
+1631046709 source:c:\users\samuel gomes\desktop\programming 2d games\kid boy checheu game 2d\functions.cpp
+	"functions.h"
+	<stdio.h>
+	<allegro5/allegro.h>
+
+1631046725 c:\users\samuel gomes\desktop\programming 2d games\kid boy checheu game 2d\functions.h
+
+1631018944 source:c:\users\samuel gomes\desktop\programming 2d games\kid boy checheu game 2d\src\person.cpp
+	"person.h"
+	<stdio.h>
+
+1631018940 c:\users\samuel gomes\desktop\programming 2d games\kid boy checheu game 2d\include\person.h
+
+1631017087 source:c:\users\samuel gomes\desktop\programming 2d games\kid boy checheu game 2d\src\teste.cpp
+	"teste.h"
+	<stdio.h>
+
+1631017118 c:\users\samuel gomes\desktop\programming 2d games\kid boy checheu game 2d\include\teste.h
+
+1665713623 source:c:\users\samuel gomes\desktop\programming 2d games\kid boy checheu game 2d\main.cpp
+	<allegro5/allegro.h>
+	<allegro5/allegro_native_dialog.h>
+	<allegro5/allegro_font.h>
+	<allegro5/allegro_image.h>
+	<allegro5/allegro_primitives.h>
+	<allegro5/allegro_audio.h>
+	<allegro5/allegro_acodec.h>
+	<stdio.h>
+	<stdlib.h>
+	<typeinfo>
+	<iostream>
+	<fstream>
+	<string>
+	<vector>
+	<algorithm>
+	<limits>
+	<math.h>
+	<array>
+	<iterator>
+	<cstdlib>
+	"global_variables.cpp"
+	"clouds.cpp"
+	"ghosts.cpp"
+	"personagem.cpp"
+	"floor.cpp"
+	"functions.h"
+	"introduction.cpp"
+
+1665709981 c:\users\samuel gomes\desktop\programming 2d games\kid boy checheu game 2d\global_variables.cpp
+
+1631501030 c:\users\samuel gomes\desktop\programming 2d games\kid boy checheu game 2d\clouds.cpp
+
+1631502165 c:\users\samuel gomes\desktop\programming 2d games\kid boy checheu game 2d\ghosts.cpp
+
+1665713384 c:\users\samuel gomes\desktop\programming 2d games\kid boy checheu game 2d\personagem.cpp
+	<iostream>
+
+1665112391 c:\users\samuel gomes\desktop\programming 2d games\kid boy checheu game 2d\floor.cpp
+
+1665112371 c:\users\samuel gomes\desktop\programming 2d games\kid boy checheu game 2d\introduction.cpp
+
