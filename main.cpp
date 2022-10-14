@@ -351,6 +351,15 @@ void personagemHandle(int mapLine, int mapColumn, int value) {
     int personagemLine = Joao.y;
     int personagemColumn = Joao.x;
 
+    if (Joao.state == PERSONAGEM_ACTIONS::JUMP) {
+        /**
+        continuar apartir daqui
+
+        - processando o pulo...
+        */
+        return;
+    }
+
     bool isCollision = personagemCheckCollisionHorizontally(mapLine, mapColumn, value);
 
     if (!isCollision) {
@@ -661,7 +670,6 @@ int main()
                 }
 
                 if (Joao.state == PERSONAGEM_ACTIONS::FALLEN && Joao.direction == RIGHT && joaoFallImage) {
-                    printf("Fallen to right...");
                     al_draw_bitmap_region(joaoFallImage, 0, 0, 64, 64, Joao.x - 15, Joao.y - 54, 0 );
                 }
 

@@ -281,8 +281,6 @@ bool isMaxLimitMoveRight(PERSONAGEM p) {
 }
 
 void jumpPersonagem(PERSONAGEM *p) {
-
-    printf("pulei...");
     p->aceleration = 14; // aceleration = impulso para cima
 }
 
