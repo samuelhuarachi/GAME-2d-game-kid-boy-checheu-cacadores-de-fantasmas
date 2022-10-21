@@ -36,6 +36,7 @@ using std::vector;
 #include "floor.cpp"
 #include "functions.h"
 #include "introduction.cpp"
+#include "physical.h"
 
 
 // tutorial allegro 5 https://github.com/liballeg/allegro_wiki/wiki/Allegro-Vivace%3A-Graphics
@@ -493,6 +494,44 @@ void drawMap() {
 
 int main()
 {
+    /**
+    Colocar uma variavel flag para apontar quantas vezes o mapa devera ser rederizado
+    antes de sair do software.
+    Isso para ajudar no debug do jogo.
+    */
+
+
+    /**
+    Testando a funcao de fisica do jogo
+    */
+    double finalPosition1 = PhysicalMUV_S(-2.5, 15.0, 1.0);
+    double finalPosition2 = PhysicalMUV_S(-2.5, 15.0, 2.0);
+    double finalPosition3 = PhysicalMUV_S(-2.5, 15.0, 3.0);
+    double finalPosition4 = PhysicalMUV_S(-2.5, 15.0, 4.0);
+    double finalPosition5 = PhysicalMUV_S(-2.5, 15.0, 5.0);
+    double finalPosition6 = PhysicalMUV_S(-2.5, 15.0, 6.0);
+
+    double finalPosition7 = PhysicalMUV_S(-2.5, 15.0, 7.0);
+    double finalPosition8 = PhysicalMUV_S(-2.5, 15.0, 8.0);
+    double finalPosition9 = PhysicalMUV_S(-2.5, 15.0, 9.0);
+    double finalPosition10 = PhysicalMUV_S(-2.5, 15.0, 10.0);
+    double finalPosition11 = PhysicalMUV_S(-2.5, 15.0, 11.0);
+    double finalPosition12 = PhysicalMUV_S(-2.5, 15.0, 12.0);
+
+    printf("Final position %f \n", finalPosition1);
+    printf("Final position %f \n", finalPosition2);
+    printf("Final position %f \n", finalPosition3);
+    printf("Final position %f \n", finalPosition4);
+    printf("Final position %f \n", finalPosition5);
+    printf("Final position %f \n", finalPosition6);
+
+    printf("Final position %f \n", finalPosition7);
+    printf("Final position %f \n", finalPosition8);
+    printf("Final position %f \n", finalPosition9);
+    printf("Final position %f \n", finalPosition10);
+    printf("Final position %f \n", finalPosition11);
+    printf("Final position %f \n", finalPosition12);
+
     array_clouds.clear();
 
     inicializePersonagem(&Joao);

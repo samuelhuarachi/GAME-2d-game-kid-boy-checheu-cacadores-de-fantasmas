@@ -391,7 +391,7 @@
 
 1631017118 c:\users\samuel gomes\desktop\programming 2d games\kid boy checheu game 2d\include\teste.h
 
-1665714848 source:c:\users\samuel gomes\desktop\programming 2d games\kid boy checheu game 2d\main.cpp
+1666321607 source:c:\users\samuel gomes\desktop\programming 2d games\kid boy checheu game 2d\main.cpp
 	<allegro5/allegro.h>
 	<allegro5/allegro_native_dialog.h>
 	<allegro5/allegro_font.h>
@@ -419,6 +419,7 @@
 	"floor.cpp"
 	"functions.h"
 	"introduction.cpp"
+	"physical.h"
 
 1665709981 c:\users\samuel gomes\desktop\programming 2d games\kid boy checheu game 2d\global_variables.cpp
 
@@ -426,10 +427,17 @@
 
 1631502165 c:\users\samuel gomes\desktop\programming 2d games\kid boy checheu game 2d\ghosts.cpp
 
-1665715076 c:\users\samuel gomes\desktop\programming 2d games\kid boy checheu game 2d\personagem.cpp
+1665715102 c:\users\samuel gomes\desktop\programming 2d games\kid boy checheu game 2d\personagem.cpp
 	<iostream>
 
 1665112391 c:\users\samuel gomes\desktop\programming 2d games\kid boy checheu game 2d\floor.cpp
 
 1665112371 c:\users\samuel gomes\desktop\programming 2d games\kid boy checheu game 2d\introduction.cpp
+
+1666318262 source:c:\users\samuel gomes\desktop\programming 2d games\kid boy checheu game 2d\physical.cpp
+	<iostream>
+
+1666316110 c:\users\samuel gomes\desktop\programming 2d games\kid boy checheu game 2d\physical.cpp
+
+1666317354 c:\users\samuel gomes\desktop\programming 2d games\kid boy checheu game 2d\physical.h
 
