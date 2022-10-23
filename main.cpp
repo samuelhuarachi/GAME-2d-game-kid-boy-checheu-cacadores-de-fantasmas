@@ -347,27 +347,75 @@ bool personagemCheckCollisionHorizontally(int mapLine, int mapColumn, int value)
     return true;
 }
 
+void handlePersonagemJump() {
+
+    double timeDelay = 0.5;
+    double initialVelocity = 30;
+    double positionInitial = PhysicalMUV_S(
+                                           Joao.gravity_aceleration,
+                                           initialVelocity,
+                                           Joao.JUMP_TIME - timeDelay);
+    double positionFinal = PhysicalMUV_S(
+                                         Joao.gravity_aceleration,
+                                         initialVelocity,
+                                         Joao.JUMP_TIME);
+    double variation = positionFinal - positionInitial;
+
+    if (variation < 0) {
+        //Joao.JUMP_TIME = ;
+        Joao.state = PERSONAGEM_ACTIONS::FALLEN;
+        return;
+    }
+
+    Joao.y = Joao.y - variation;
+    Joao.JUMP_TIME = Joao.JUMP_TIME + timeDelay;
+}
+
+void handlePersonagemJumpFallen() {
+    double timeDelay = 0.5;
+    double initialVelocity = 30;
+
+    double positionInitial = PhysicalMUV_S(
+                                           Joao.gravity_aceleration,
+                                           initialVelocity,
+                                           Joao.JUMP_TIME - timeDelay);
+    double positionFinal = PhysicalMUV_S(
+                                         Joao.gravity_aceleration,
+                                         initialVelocity,
+                                         Joao.JUMP_TIME);
+    double variation = positionFinal - positionInitial;
+
+    Joao.y = Joao.y - variation;
+    Joao.JUMP_TIME = Joao.JUMP_TIME + timeDelay;
+}
+
 void personagemHandle(int mapLine, int mapColumn, int value) {
+
+    /**
+    corrigir o bug de quando ele pula no final das arestas
+
+
+    */
 
     int personagemLine = Joao.y;
     int personagemColumn = Joao.x;
 
     if (Joao.state == PERSONAGEM_ACTIONS::JUMP) {
-        /**
-        continuar apartir daqui
-
-        - processando o pulo...
-        */
+        handlePersonagemJump();
         return;
+    }
+    if (Joao.state == PERSONAGEM_ACTIONS::FALLEN) {
+        handlePersonagemJumpFallen();
     }
 
     bool isCollision = personagemCheckCollisionHorizontally(mapLine, mapColumn, value);
 
     if (!isCollision) {
         Joao.state = PERSONAGEM_ACTIONS::FALLEN;
-        Joao.y = Joao.y + 5;
         return;
     }
+
+    Joao.JUMP_TIME = 0;
 
     if (Joao.state != PERSONAGEM_ACTIONS::WALKING) {
         Joao.state = PERSONAGEM_ACTIONS::STOP;
@@ -421,6 +469,11 @@ void drawMap() {
     al_draw_textf(font, al_map_rgb(255, 255, 255), 10, 60, 0, "result %d", result);
 
     VERTICALLY_FLOOR position_vertically_floor;
+
+    if (DEBUG_TIMES_TO_RUN_COUNTER >= DEBUG_TIMES_TO_RUN) {
+
+      //  return;
+    }
 
     // zera as posicoes tanto do chao, quanto do chao na vertical
     for (int i = 0; i < 1999; i++) {
@@ -490,6 +543,8 @@ void drawMap() {
         }
     }
 
+
+    DEBUG_TIMES_TO_RUN_COUNTER++;
 }
 
 int main()
@@ -499,7 +554,6 @@ int main()
     antes de sair do software.
     Isso para ajudar no debug do jogo.
     */
-
 
     /**
     Testando a funcao de fisica do jogo

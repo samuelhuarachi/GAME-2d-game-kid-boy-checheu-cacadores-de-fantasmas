@@ -63,6 +63,7 @@
 			<Option target="&lt;{~None~}&gt;" />
 		</Unit>
 		<Unit filename="physical.cpp" />
+		<Unit filename="physical.h" />
 		<Unit filename="src/person.cpp" />
 		<Unit filename="src/teste.cpp" />
 		<Extensions>

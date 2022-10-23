@@ -32,6 +32,9 @@ typedef struct PERSONAGEM
     int CURRENT_SPRITE_RUNNING = 0;
     int imageWidth = 64;
     int imageHeight = 64;
+    double JUMP_TIME = 12;
+    float initial_y_in_start_jump = 0; /** guarda a posicao y no inicio do pulo */
+    double gravity_aceleration = -2.5;
 
 } PERSONAGEM;
 

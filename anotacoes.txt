@@ -1,0 +1,12 @@
+Ponteiros
+
+int value5 = 5;
+
+int *pnt;
+
+pnt = &value5;
+
+cout << *pnt;
+cout << "\n";
+	
+	
