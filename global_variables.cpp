@@ -7,7 +7,7 @@
 #define DELAY_JUMP_JOAO              5
 #define GAME_HEIGHT                  600
 #define MAX_GLOBAL_DELAY             10
-int DEBUG_TIMES_TO_RUN = 1;
+int DEBUG_TIMES_TO_RUN = 20;
 int DEBUG_TIMES_TO_RUN_COUNTER = 0;
 
 #define MAP_FLOOR             '#'
@@ -22,6 +22,7 @@ int DEBUG_TIMES_TO_RUN_COUNTER = 0;
 #define MAP_INFINITE_FLOOR_INT    3
 #define MAP_CLOUD_INT             2
 
+#include "SpaceControl.h"
 
 int CURRENT_MAX_GLOBAL_DELAY  = 0;
 
@@ -106,3 +107,6 @@ unsigned char key[ALLEGRO_KEY_MAX];
 ALLEGRO_FONT* font;
 ALLEGRO_DISPLAY* disp;
 ALLEGRO_EVENT_QUEUE* queue;
+
+
+SpaceControl spaceControlPersonagem;

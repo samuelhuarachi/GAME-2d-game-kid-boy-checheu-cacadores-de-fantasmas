@@ -39,6 +39,7 @@ using std::vector;
 #include "physical.h"
 
 
+
 // tutorial allegro 5 https://github.com/liballeg/allegro_wiki/wiki/Allegro-Vivace%3A-Graphics
 // physics 2D => http://chipmunk-physics.net/release/ChipmunkLatest-Docs/#Intro-HelloChipmunk
 
@@ -362,7 +363,6 @@ void handlePersonagemJump() {
     double variation = positionFinal - positionInitial;
 
     if (variation < 0) {
-        //Joao.JUMP_TIME = ;
         Joao.state = PERSONAGEM_ACTIONS::FALLEN;
         return;
     }
@@ -371,7 +371,7 @@ void handlePersonagemJump() {
     Joao.JUMP_TIME = Joao.JUMP_TIME + timeDelay;
 }
 
-void handlePersonagemJumpFallen() {
+void handlePersonagemFallen() {
     double timeDelay = 0.5;
     double initialVelocity = 30;
 
@@ -385,8 +385,26 @@ void handlePersonagemJumpFallen() {
                                          Joao.JUMP_TIME);
     double variation = positionFinal - positionInitial;
 
-    Joao.y = Joao.y - variation;
+    spaceControlPersonagem.setVariation(variation);
+
+    //Joao.y = Joao.y - variation;
+
     Joao.JUMP_TIME = Joao.JUMP_TIME + timeDelay;
+}
+
+void handlePersonagemFallenDirty() {
+
+    double variation = spaceControlPersonagem.getVariation();
+    double variationCount = spaceControlPersonagem.getVariationCount();
+
+    double variationBetweensVariations = std::abs(std::abs(variation) - variationCount);
+
+    if (variationBetweensVariations < 1) {
+        Joao.y = Joao.y - variation;
+        return;
+    }
+
+    Joao.y = Joao.y - (-1 * variationCount);
 }
 
 void personagemHandle(int mapLine, int mapColumn, int value) {
@@ -404,8 +422,10 @@ void personagemHandle(int mapLine, int mapColumn, int value) {
         handlePersonagemJump();
         return;
     }
+
     if (Joao.state == PERSONAGEM_ACTIONS::FALLEN) {
-        handlePersonagemJumpFallen();
+        handlePersonagemFallen();
+        return;
     }
 
     bool isCollision = personagemCheckCollisionHorizontally(mapLine, mapColumn, value);
@@ -425,14 +445,26 @@ void personagemHandle(int mapLine, int mapColumn, int value) {
     Joao.y = mapLine;
 }
 
+void personagemHandleDirty(int mapLine, int mapColumn, int value) {
+
+    if (Joao.state == PERSONAGEM_ACTIONS::FALLEN) {
+        handlePersonagemFallenDirty();
+    }
+
+    bool isCollision = personagemCheckCollisionHorizontally(mapLine, mapColumn, value);
+
+    if (isCollision) {
+        Joao.y = mapLine;
+    }
+
+    spaceControlPersonagem.handle();
+    cout << ".";
+}
+
 bool iCanHandlePersonagem(int mapLine, int mapColumn) {
 
     int personagemLine = Joao.y;
     int personagemColumn = Joao.x;
-
-    //if (personagemLine % 10 == 0) {
-
-    //}
 
     int diffLine = std::abs(personagemLine-mapLine);
 
@@ -472,7 +504,7 @@ void drawMap() {
 
     if (DEBUG_TIMES_TO_RUN_COUNTER >= DEBUG_TIMES_TO_RUN) {
 
-      //  return;
+      return;
     }
 
     // zera as posicoes tanto do chao, quanto do chao na vertical
@@ -488,6 +520,9 @@ void drawMap() {
     int iCanHandlePersonagemFlag = true;
     int iCanHandlePersonagemCount = 2;
 
+    spaceControlPersonagem.setPristine(true);
+    spaceControlPersonagem.setVariationCount(0);
+
     for (int line = linesVisionMin; line < linesVisionMax; line++) {
         for (int column = columnsVisionMin; column < columnsVisionMax; column++) {
             value = GAMEMAP[line][column];
@@ -495,10 +530,20 @@ void drawMap() {
             mapLine = line * 10 - 10;
             mapColumn = (column * 20) + MAP_MOVE - 20;
 
+            bool spaceControlPersonagemPristine = spaceControlPersonagem.getPristine();
+            bool spaceControlPersonagemIsHandleble = spaceControlPersonagem.isHandleble();
+
+            if (spaceControlPersonagemPristine == false &&
+                spaceControlPersonagemIsHandleble == true) {
+
+                personagemHandleDirty(mapLine, mapColumn, value);
+            }
+
             if (
                     iCanHandlePersonagemFlag == true &&
                     iCanHandlePersonagem(mapLine, mapColumn) &&
-                    iCanHandlePersonagemCount > 1
+                    iCanHandlePersonagemCount > 1 &&
+                    spaceControlPersonagemPristine == true
                 )
                 {
 
@@ -509,6 +554,9 @@ void drawMap() {
                 if (iCanHandlePersonagemCount < 0) {
                     iCanHandlePersonagemFlag = false;
                 }
+
+                cout << "###################################### \n";
+                spaceControlPersonagem.setPristine(false);
             }
 
 
@@ -549,6 +597,9 @@ void drawMap() {
 
 int main()
 {
+
+    spaceControlPersonagem.teste();
+
     /**
     Colocar uma variavel flag para apontar quantas vezes o mapa devera ser rederizado
     antes de sair do software.
