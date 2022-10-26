@@ -446,15 +446,15 @@ void personagemHandle(int mapLine, int mapColumn, int value) {
 }
 
 void personagemHandleDirty(int mapLine, int mapColumn, int value) {
-
+    bool isCollision = false;
     if (Joao.state == PERSONAGEM_ACTIONS::FALLEN) {
         handlePersonagemFallenDirty();
+        isCollision = personagemCheckCollisionHorizontally(mapLine, mapColumn, value);
     }
 
-    bool isCollision = personagemCheckCollisionHorizontally(mapLine, mapColumn, value);
-
     if (isCollision) {
-        Joao.y = mapLine;
+        cout << "colidiu";
+        Joao.state == PERSONAGEM_ACTIONS::STOP;
     }
 
     spaceControlPersonagem.handle();
