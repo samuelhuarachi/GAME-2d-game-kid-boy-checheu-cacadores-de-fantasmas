@@ -1,7 +1,7 @@
 # Kid Boy Checheu - 2D Game
 ## Caçadores de Fantasmas
 
-![alt text](https://ibb.co/zHwmFzY)
+![alt text](https://i.ibb.co/7NFSQq5/kid-boy-game-image.png)
 
 [![Build Status](https://travis-ci.org/joemccann/dillinger.svg?branch=master)](https://travis-ci.org/joemccann/dillinger)
 
