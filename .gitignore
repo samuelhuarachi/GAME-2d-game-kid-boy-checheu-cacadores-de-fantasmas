@@ -1,1 +1,4 @@
-bin
+bin/Debug
+obj/Debug
+allegro.log
+jogo1.depend

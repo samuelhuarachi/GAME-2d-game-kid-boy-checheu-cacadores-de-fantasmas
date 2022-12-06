@@ -9,6 +9,7 @@
 #define MAX_GLOBAL_DELAY             10
 int DEBUG_TIMES_TO_RUN = 20;
 int DEBUG_TIMES_TO_RUN_COUNTER = 0;
+bool DEBUG_ACTIVATED = true;
 
 #define MAP_FLOOR             '#'
 #define MAP_AIR               ' '

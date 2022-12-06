@@ -62,6 +62,7 @@ bool isMovingRight(int key) {
     return false;
 }
 
+
 bool isMovingLeft(int key) {
 
     if (key) {
@@ -448,17 +449,21 @@ void personagemHandle(int mapLine, int mapColumn, int value) {
 void personagemHandleDirty(int mapLine, int mapColumn, int value) {
     bool isCollision = false;
     if (Joao.state == PERSONAGEM_ACTIONS::FALLEN) {
-        handlePersonagemFallenDirty();
+        // handlePersonagemFallenDirty();
+
+        double variation = spaceControlPersonagem.getVariation();
+        cout << "Variation founded: " << variation << "\n";
+
         isCollision = personagemCheckCollisionHorizontally(mapLine, mapColumn, value);
     }
 
-    if (isCollision) {
-        cout << "colidiu";
-        Joao.state == PERSONAGEM_ACTIONS::STOP;
+    if (isCollision == true) {
+        //cout << "colidiu";
+        Joao.state = PERSONAGEM_ACTIONS::STOP;
     }
 
     spaceControlPersonagem.handle();
-    cout << ".";
+    //cout << ".";
 }
 
 bool iCanHandlePersonagem(int mapLine, int mapColumn) {
@@ -502,7 +507,8 @@ void drawMap() {
 
     VERTICALLY_FLOOR position_vertically_floor;
 
-    if (DEBUG_TIMES_TO_RUN_COUNTER >= DEBUG_TIMES_TO_RUN) {
+    if (DEBUG_TIMES_TO_RUN_COUNTER >= DEBUG_TIMES_TO_RUN &&
+        DEBUG_ACTIVATED == true) {
 
       return;
     }
@@ -831,18 +837,12 @@ int main()
 
                 ghosts_action(MAP_MOVE);
 
-
                 //al_draw_circle(Joao.x, Joao.y, 3, al_map_rgb(255, 255, 255), 1);
-
 
                 al_draw_textf(font, al_map_rgb(255, 255, 255), 10, 20, 0, "X: %f", Joao.x);
                 al_draw_textf(font, al_map_rgb(255, 255, 255), 150, 20, 0, "Y: %f", Joao.y);
 
-
                 al_draw_textf(font, al_map_rgb(255, 255, 255), 10, 40, 0, "MAP_MOVE: %d", MAP_MOVE);
-
-
-
 
             }
 

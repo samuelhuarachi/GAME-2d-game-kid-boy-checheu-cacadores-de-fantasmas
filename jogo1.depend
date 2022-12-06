@@ -1,31 +1,10 @@
 # depslib dependency file v1.0
-1664502453 source:c:\users\samuel gomes\desktop\jogos\jogo1\main.cpp
-	<allegro5/allegro.h>
-	<allegro5/allegro_native_dialog.h>
-	<allegro5/allegro_font.h>
-	<allegro5/allegro_image.h>
-	<allegro5/allegro_primitives.h>
-	<allegro5/allegro_audio.h>
-	<allegro5/allegro_acodec.h>
-	<stdio.h>
-	<stdlib.h>
-	<typeinfo>
-	<iostream>
-	<fstream>
-	<string>
-	<vector>
-	<algorithm>
-	<limits>
-	<math.h>
-	<array>
-	<iterator>
-	"global_variables.cpp"
-	"clouds.cpp"
-	"ghosts.cpp"
-	"personagem.cpp"
-	"floor.cpp"
+1631046709 source:c:\users\samuel gomes\desktop\programming 2d games\2d-game-kid-boy-checheu-cacadores-de-fantasmas\functions.cpp
 	"functions.h"
-	"introduction.cpp"
+	<stdio.h>
+	<allegro5/allegro.h>
+
+1631046725 c:\users\samuel gomes\desktop\programming 2d games\2d-game-kid-boy-checheu-cacadores-de-fantasmas\functions.h
 
 1372628331 c:\users\samuel gomes\desktop\allegro-5.0.10-mingw-4.7.0\allegro-5.0.10-mingw-4.7.0\include\allegro5\allegro.h
 	"allegro5/base.h"
@@ -252,146 +231,7 @@
 
 1372628331 c:\users\samuel gomes\desktop\allegro-5.0.10-mingw-4.7.0\allegro-5.0.10-mingw-4.7.0\include\allegro5\alcompat.h
 
-1372628331 c:\users\samuel gomes\desktop\allegro-5.0.10-mingw-4.7.0\allegro-5.0.10-mingw-4.7.0\include\allegro5\allegro_native_dialog.h
-	"allegro5/allegro.h"
-
-1372628331 c:\users\samuel gomes\desktop\allegro-5.0.10-mingw-4.7.0\allegro-5.0.10-mingw-4.7.0\include\allegro5\allegro_font.h
-	"allegro5/allegro.h"
-
-1362327499 c:\users\samuel gomes\desktop\allegro-5.0.10-mingw-4.7.0\allegro-5.0.10-mingw-4.7.0\include\allegro5\allegro_image.h
-
-1372628331 c:\users\samuel gomes\desktop\allegro-5.0.10-mingw-4.7.0\allegro-5.0.10-mingw-4.7.0\include\allegro5\allegro_primitives.h
-	<allegro5/allegro.h>
-
-1631046725 c:\users\samuel gomes\desktop\jogos\jogo1\functions.h
-
-1630637943 c:\users\samuel gomes\desktop\jogos\jogo1\include\functions2.h
-
-1630638032 source:c:\users\samuel gomes\desktop\jogos\jogo1\src\functions2.cpp
-	"functions2.h"
-	<allegro5/allegro.h>
-	<stdio.h>
-
-1631046709 source:c:\users\samuel gomes\desktop\jogos\jogo1\functions.cpp
-	"functions.h"
-	<stdio.h>
-	<allegro5/allegro.h>
-
-1630967859 source:c:\users\samuel gomes\desktop\jogos\jogo1\src\avatar.cpp
-	"Avatar.h"
-
-1630967807 c:\users\samuel gomes\desktop\jogos\jogo1\include\avatar.h
-
-1631017087 source:c:\users\samuel gomes\desktop\jogos\jogo1\src\teste.cpp
-	"teste.h"
-	<stdio.h>
-
-1631017118 c:\users\samuel gomes\desktop\jogos\jogo1\include\teste.h
-
-1631018944 source:c:\users\samuel gomes\desktop\jogos\jogo1\src\person.cpp
-	"person.h"
-	<stdio.h>
-
-1631018940 c:\users\samuel gomes\desktop\jogos\jogo1\include\person.h
-
-1664502307 c:\users\samuel gomes\desktop\jogos\jogo1\personagem.cpp
-
-1664500799 c:\users\samuel gomes\desktop\jogos\jogo1\global_variables.cpp
-
-1634179638 c:\users\samuel gomes\desktop\jogos\jogo1\floor.cpp
-
-1372628331 c:\users\samuel gomes\desktop\allegro-5.0.10-mingw-4.7.0\allegro-5.0.10-mingw-4.7.0\include\allegro5\allegro_audio.h
-	"allegro5/allegro.h"
-
-1633649104 c:\users\samuel gomes\desktop\jogos\jogo1\introduction.cpp
-
-1362327499 c:\users\samuel gomes\desktop\allegro-5.0.10-mingw-4.7.0\allegro-5.0.10-mingw-4.7.0\include\allegro5\allegro_acodec.h
-	"allegro5/allegro.h"
-	"allegro5/allegro_audio.h"
-
-1631501030 c:\users\samuel gomes\desktop\jogos\jogo1\clouds.cpp
-
-1631502165 c:\users\samuel gomes\desktop\jogos\jogo1\ghosts.cpp
-
-1631046709 source:c:\users\samuel gomes\desktop\jogos\kid boy checheu game 2d\functions.cpp
-	"functions.h"
-	<stdio.h>
-	<allegro5/allegro.h>
-
-1631046725 c:\users\samuel gomes\desktop\jogos\kid boy checheu game 2d\functions.h
-
-1664503248 source:c:\users\samuel gomes\desktop\jogos\kid boy checheu game 2d\main.cpp
-	<allegro5/allegro.h>
-	<allegro5/allegro_native_dialog.h>
-	<allegro5/allegro_font.h>
-	<allegro5/allegro_image.h>
-	<allegro5/allegro_primitives.h>
-	<allegro5/allegro_audio.h>
-	<allegro5/allegro_acodec.h>
-	<stdio.h>
-	<stdlib.h>
-	<typeinfo>
-	<iostream>
-	<fstream>
-	<string>
-	<vector>
-	<algorithm>
-	<limits>
-	<math.h>
-	<array>
-	<iterator>
-	"global_variables.cpp"
-	"clouds.cpp"
-	"ghosts.cpp"
-	"personagem.cpp"
-	"floor.cpp"
-	"functions.h"
-	"introduction.cpp"
-
-1664503085 c:\users\samuel gomes\desktop\jogos\kid boy checheu game 2d\global_variables.cpp
-
-1631501030 c:\users\samuel gomes\desktop\jogos\kid boy checheu game 2d\clouds.cpp
-
-1631502165 c:\users\samuel gomes\desktop\jogos\kid boy checheu game 2d\ghosts.cpp
-
-1664502307 c:\users\samuel gomes\desktop\jogos\kid boy checheu game 2d\personagem.cpp
-
-1634179638 c:\users\samuel gomes\desktop\jogos\kid boy checheu game 2d\floor.cpp
-
-1633649104 c:\users\samuel gomes\desktop\jogos\kid boy checheu game 2d\introduction.cpp
-
-1631018944 source:c:\users\samuel gomes\desktop\jogos\kid boy checheu game 2d\src\person.cpp
-	"person.h"
-	<stdio.h>
-
-1631018940 c:\users\samuel gomes\desktop\jogos\kid boy checheu game 2d\include\person.h
-
-1631017087 source:c:\users\samuel gomes\desktop\jogos\kid boy checheu game 2d\src\teste.cpp
-	"teste.h"
-	<stdio.h>
-
-1631017118 c:\users\samuel gomes\desktop\jogos\kid boy checheu game 2d\include\teste.h
-
-1631046709 source:c:\users\samuel gomes\desktop\programming 2d games\kid boy checheu game 2d\functions.cpp
-	"functions.h"
-	<stdio.h>
-	<allegro5/allegro.h>
-
-1631046725 c:\users\samuel gomes\desktop\programming 2d games\kid boy checheu game 2d\functions.h
-
-1631018944 source:c:\users\samuel gomes\desktop\programming 2d games\kid boy checheu game 2d\src\person.cpp
-	"person.h"
-	<stdio.h>
-
-1631018940 c:\users\samuel gomes\desktop\programming 2d games\kid boy checheu game 2d\include\person.h
-
-1631017087 source:c:\users\samuel gomes\desktop\programming 2d games\kid boy checheu game 2d\src\teste.cpp
-	"teste.h"
-	<stdio.h>
-
-1631017118 c:\users\samuel gomes\desktop\programming 2d games\kid boy checheu game 2d\include\teste.h
-
-1666750318 source:c:\users\samuel gomes\desktop\programming 2d games\kid boy checheu game 2d\main.cpp
+1670286896 source:c:\users\samuel gomes\desktop\programming 2d games\2d-game-kid-boy-checheu-cacadores-de-fantasmas\main.cpp
 	<allegro5/allegro.h>
 	<allegro5/allegro_native_dialog.h>
 	<allegro5/allegro_font.h>
@@ -421,30 +261,72 @@
 	"introduction.cpp"
 	"physical.h"
 
-1666744409 c:\users\samuel gomes\desktop\programming 2d games\kid boy checheu game 2d\global_variables.cpp
+1372628331 c:\users\samuel gomes\desktop\allegro-5.0.10-mingw-4.7.0\allegro-5.0.10-mingw-4.7.0\include\allegro5\allegro_native_dialog.h
+	"allegro5/allegro.h"
+
+1372628331 c:\users\samuel gomes\desktop\allegro-5.0.10-mingw-4.7.0\allegro-5.0.10-mingw-4.7.0\include\allegro5\allegro_font.h
+	"allegro5/allegro.h"
+
+1362327499 c:\users\samuel gomes\desktop\allegro-5.0.10-mingw-4.7.0\allegro-5.0.10-mingw-4.7.0\include\allegro5\allegro_image.h
+
+1372628331 c:\users\samuel gomes\desktop\allegro-5.0.10-mingw-4.7.0\allegro-5.0.10-mingw-4.7.0\include\allegro5\allegro_primitives.h
+	<allegro5/allegro.h>
+
+1372628331 c:\users\samuel gomes\desktop\allegro-5.0.10-mingw-4.7.0\allegro-5.0.10-mingw-4.7.0\include\allegro5\allegro_audio.h
+	"allegro5/allegro.h"
+
+1362327499 c:\users\samuel gomes\desktop\allegro-5.0.10-mingw-4.7.0\allegro-5.0.10-mingw-4.7.0\include\allegro5\allegro_acodec.h
+	"allegro5/allegro.h"
+	"allegro5/allegro_audio.h"
+
+1669079474 c:\users\samuel gomes\desktop\programming 2d games\2d-game-kid-boy-checheu-cacadores-de-fantasmas\global_variables.cpp
 	"SpaceControl.h"
 
-1631501030 c:\users\samuel gomes\desktop\programming 2d games\kid boy checheu game 2d\clouds.cpp
+1666747960 c:\users\samuel gomes\desktop\programming 2d games\2d-game-kid-boy-checheu-cacadores-de-fantasmas\include\spacecontrol.h
 
-1631502165 c:\users\samuel gomes\desktop\programming 2d games\kid boy checheu game 2d\ghosts.cpp
+1631501030 c:\users\samuel gomes\desktop\programming 2d games\2d-game-kid-boy-checheu-cacadores-de-fantasmas\clouds.cpp
 
-1666743260 c:\users\samuel gomes\desktop\programming 2d games\kid boy checheu game 2d\personagem.cpp
+1631502165 c:\users\samuel gomes\desktop\programming 2d games\2d-game-kid-boy-checheu-cacadores-de-fantasmas\ghosts.cpp
+
+1666743260 c:\users\samuel gomes\desktop\programming 2d games\2d-game-kid-boy-checheu-cacadores-de-fantasmas\personagem.cpp
 	<iostream>
 
-1665112391 c:\users\samuel gomes\desktop\programming 2d games\kid boy checheu game 2d\floor.cpp
+1665112391 c:\users\samuel gomes\desktop\programming 2d games\2d-game-kid-boy-checheu-cacadores-de-fantasmas\floor.cpp
 
-1665112371 c:\users\samuel gomes\desktop\programming 2d games\kid boy checheu game 2d\introduction.cpp
+1665112371 c:\users\samuel gomes\desktop\programming 2d games\2d-game-kid-boy-checheu-cacadores-de-fantasmas\introduction.cpp
 
-1666318262 source:c:\users\samuel gomes\desktop\programming 2d games\kid boy checheu game 2d\physical.cpp
+1666317354 c:\users\samuel gomes\desktop\programming 2d games\2d-game-kid-boy-checheu-cacadores-de-fantasmas\physical.h
+
+1666318262 source:c:\users\samuel gomes\desktop\programming 2d games\2d-game-kid-boy-checheu-cacadores-de-fantasmas\physical.cpp
 	<iostream>
 
-1666316110 c:\users\samuel gomes\desktop\programming 2d games\kid boy checheu game 2d\physical.cpp
+1670287642 source:c:\users\samuel gomes\desktop\programming 2d games\2d-game-kid-boy-checheu-cacadores-de-fantasmas\src\avatar.cpp
+	"Avatar.h"
 
-1666317354 c:\users\samuel gomes\desktop\programming 2d games\kid boy checheu game 2d\physical.h
+1630967807 c:\users\samuel gomes\desktop\programming 2d games\2d-game-kid-boy-checheu-cacadores-de-fantasmas\include\avatar.h
 
-1666747960 c:\users\samuel gomes\desktop\programming 2d games\kid boy checheu game 2d\include\spacecontrol.h
+1670287709 source:c:\users\samuel gomes\desktop\programming 2d games\2d-game-kid-boy-checheu-cacadores-de-fantasmas\src\functions2.cpp
+	"functions2.h"
+	<allegro5/allegro.h>
+	<stdio.h>
 
-1666748855 source:c:\users\samuel gomes\desktop\programming 2d games\kid boy checheu game 2d\src\spacecontrol.cpp
+1630637943 c:\users\samuel gomes\desktop\programming 2d games\2d-game-kid-boy-checheu-cacadores-de-fantasmas\include\functions2.h
+
+1631018944 source:c:\users\samuel gomes\desktop\programming 2d games\2d-game-kid-boy-checheu-cacadores-de-fantasmas\src\person.cpp
+	"person.h"
+	<stdio.h>
+
+1631018940 c:\users\samuel gomes\desktop\programming 2d games\2d-game-kid-boy-checheu-cacadores-de-fantasmas\include\person.h
+
+1666748855 source:c:\users\samuel gomes\desktop\programming 2d games\2d-game-kid-boy-checheu-cacadores-de-fantasmas\src\spacecontrol.cpp
 	<iostream>
 	"SpaceControl.h"
+
+1631017087 source:c:\users\samuel gomes\desktop\programming 2d games\2d-game-kid-boy-checheu-cacadores-de-fantasmas\src\teste.cpp
+	"teste.h"
+	<stdio.h>
+
+1631017118 c:\users\samuel gomes\desktop\programming 2d games\2d-game-kid-boy-checheu-cacadores-de-fantasmas\include\teste.h
+
+1670287560 source:c:\users\samuel gomes\desktop\programming 2d games\2d-game-kid-boy-checheu-cacadores-de-fantasmas\src\personagem.cpp
 
