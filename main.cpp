@@ -386,6 +386,7 @@ void handlePersonagemFallen() {
                                          Joao.JUMP_TIME);
     double variation = positionFinal - positionInitial;
 
+
     spaceControlPersonagem.setVariation(variation);
 
     //Joao.y = Joao.y - variation;

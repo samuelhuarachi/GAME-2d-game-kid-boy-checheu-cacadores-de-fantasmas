@@ -53,6 +53,10 @@
 		<Unit filename="global_variables.cpp">
 			<Option target="&lt;{~None~}&gt;" />
 		</Unit>
+		<Unit filename="include/Avatar.h" />
+		<Unit filename="include/Personagem.h" />
+		<Unit filename="include/SpaceControl.h" />
+		<Unit filename="include/functions2.h" />
 		<Unit filename="include/person.h" />
 		<Unit filename="include/teste.h" />
 		<Unit filename="introduction.cpp">
@@ -64,6 +68,10 @@
 		</Unit>
 		<Unit filename="physical.cpp" />
 		<Unit filename="physical.h" />
+		<Unit filename="src/Avatar.cpp" />
+		<Unit filename="src/Personagem.cpp" />
+		<Unit filename="src/SpaceControl.cpp" />
+		<Unit filename="src/functions2.cpp" />
 		<Unit filename="src/person.cpp" />
 		<Unit filename="src/teste.cpp" />
 		<Extensions>
