@@ -1,5 +1,8 @@
 # Kid Boy Checheu - 2D Game
 ## Caçadores de Fantasmas
+
+![alt text](https://ibb.co/zHwmFzY)
+
 [![Build Status](https://travis-ci.org/joemccann/dillinger.svg?branch=master)](https://travis-ci.org/joemccann/dillinger)
 
 About a 2D Games, with terror, suspense, and fun.
