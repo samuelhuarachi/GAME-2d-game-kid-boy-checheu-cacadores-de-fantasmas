@@ -40,6 +40,7 @@ using std::vector;
 
 
 
+
 // tutorial allegro 5 https://github.com/liballeg/allegro_wiki/wiki/Allegro-Vivace%3A-Graphics
 // physics 2D => http://chipmunk-physics.net/release/ChipmunkLatest-Docs/#Intro-HelloChipmunk
 
@@ -387,6 +388,9 @@ void handlePersonagemFallen() {
     double variation = positionFinal - positionInitial;
 
 
+    /**
+    declaro a próxima posição da queda do personagem
+    */
     spaceControlPersonagem.setVariation(variation);
 
     //Joao.y = Joao.y - variation;
@@ -394,6 +398,11 @@ void handlePersonagemFallen() {
     Joao.JUMP_TIME = Joao.JUMP_TIME + timeDelay;
 }
 
+
+/**
+funcao comentada no momento
+nao estou manipulando a queda do evento dirty do personagem
+*/
 void handlePersonagemFallenDirty() {
 
     double variation = spaceControlPersonagem.getVariation();
@@ -413,8 +422,6 @@ void personagemHandle(int mapLine, int mapColumn, int value) {
 
     /**
     corrigir o bug de quando ele pula no final das arestas
-
-
     */
 
     int personagemLine = Joao.y;
@@ -463,8 +470,10 @@ void personagemHandleDirty(int mapLine, int mapColumn, int value) {
         Joao.state = PERSONAGEM_ACTIONS::STOP;
     }
 
+    /**
+    conta a quantidade de vezes que eu manipulei o personagem
+    */
     spaceControlPersonagem.handle();
-    //cout << ".";
 }
 
 bool iCanHandlePersonagem(int mapLine, int mapColumn) {
@@ -527,6 +536,11 @@ void drawMap() {
     int iCanHandlePersonagemFlag = true;
     int iCanHandlePersonagemCount = 2;
 
+    /**
+    para tratar o evento que irá acontecer quando tem a mudança de linha
+    */
+    int savePreviewsLine = -1;
+
     spaceControlPersonagem.setPristine(true);
     spaceControlPersonagem.setVariationCount(0);
 
@@ -537,15 +551,43 @@ void drawMap() {
             mapLine = line * 10 - 10;
             mapColumn = (column * 20) + MAP_MOVE - 20;
 
+
             bool spaceControlPersonagemPristine = spaceControlPersonagem.getPristine();
             bool spaceControlPersonagemIsHandleble = spaceControlPersonagem.isHandleble();
 
+            /************************
+                EVENT: Dirty
+            **************************/
             if (spaceControlPersonagemPristine == false &&
                 spaceControlPersonagemIsHandleble == true) {
 
                 personagemHandleDirty(mapLine, mapColumn, value);
             }
 
+            /************************
+                EVENT: Change line
+            **************************/
+            if (savePreviewsLine != line) {
+
+
+                /**
+                Estado do personagem: FALLEN;
+
+                Calcular a colisao do personagem,
+                caso nao tenha colisao descer 1, e
+                ir ajustando a variacao de queda
+                */
+
+                cout << "Linha: " << line << "\n";
+                cout << "Coluna personagem: " << Joao.x << "\n";
+            }
+
+            /**
+            provável que nesse espaço, ele só irá passar 1x
+            */
+            /************************
+                EVENT: Pristine
+            **************************/
             if (
                     iCanHandlePersonagemFlag == true &&
                     iCanHandlePersonagem(mapLine, mapColumn) &&
@@ -562,7 +604,7 @@ void drawMap() {
                     iCanHandlePersonagemFlag = false;
                 }
 
-                cout << "###################################### \n";
+                cout << "one time \n";
                 spaceControlPersonagem.setPristine(false);
             }
 
@@ -595,6 +637,10 @@ void drawMap() {
                     }
                 }
             }
+
+
+
+            savePreviewsLine = line;
         }
     }
 
@@ -604,6 +650,11 @@ void drawMap() {
 
 int main()
 {
+
+    /**
+    criando uma instancia do meu Helper ...
+    */
+
 
     spaceControlPersonagem.teste();
 
