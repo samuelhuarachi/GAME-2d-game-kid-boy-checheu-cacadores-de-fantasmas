@@ -9,7 +9,7 @@
 #define MAX_GLOBAL_DELAY             10
 int DEBUG_TIMES_TO_RUN = 5;
 int DEBUG_TIMES_TO_RUN_COUNTER = 0;
-bool DEBUG_ACTIVATED = true;
+bool DEBUG_ACTIVATED = false;
 
 #define MAP_FLOOR             '#'
 #define MAP_AIR               ' '
@@ -59,6 +59,7 @@ int floor3ImageHeight = 20;
 
 int allVerticallyFloor[2000][2000];
 int allFloor[2000][2000];
+int map_snapshot[60][41];
 int GAMEMAP[1000][10000];
 int DELAY_JUMP_JOAO_CURRENT = 0;
 int MAP_MOVE = 0;

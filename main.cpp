@@ -1,3 +1,10 @@
+/*
+Observações:
+
+O personagem anda de 5 em 5, aparentemente
+
+*/
+
 #include <allegro5/allegro.h>
 #include <allegro5/allegro_native_dialog.h>
 #include <allegro5/allegro_font.h>
@@ -497,7 +504,7 @@ void drawMap() {
         clayImage = al_load_bitmap("./images/clay.png");
     }
 
-    int columnsVisionMin = 0 + ((MAP_MOVE * -1) / 20) + 1;
+    int columnsVisionMin = ((MAP_MOVE * -1) / 20) + 1;
     int columnsVisionMax = 41 + ((MAP_MOVE * -1) / 20) + 1;
 
     int linesVisionMin = 0;
@@ -517,10 +524,19 @@ void drawMap() {
     }
 
     // zera as posicoes tanto do chao, quanto do chao na vertical
-    for (int i = 0; i < 1999; i++) {
+    /*for (int i = 0; i < 1999; i++) {
         for (int j = 0; j < 1999; j++) {
             allFloor[i][j] = 0; // parece que uso para identificar colisões
             allVerticallyFloor[i][j] = 0; // parece que não estou usando
+        }
+    }*/
+
+    /*
+    reset snapshot map
+    */
+    for (int i = 0; i < 60; i++) {
+        for (int j = 0; j < 41; j++) {
+            map_snapshot[i][j] = 0;
         }
     }
 
@@ -537,6 +553,12 @@ void drawMap() {
     spaceControlPersonagem.setPristine(true);
     spaceControlPersonagem.setVariationCount(0);
 
+    al_draw_textf(font, al_map_rgb(255, 255, 255), 10, 70, 0, "columnsVisionMin %d", columnsVisionMin);
+    al_draw_textf(font, al_map_rgb(255, 255, 255), 10, 80, 0, "columnsVisionMax %d", columnsVisionMax);
+    al_draw_textf(font, al_map_rgb(255, 255, 255), 10, 90, 0, "columnsVisionDiff %d", columnsVisionMax - columnsVisionMin); // sempre está dando 41
+    al_draw_textf(font, al_map_rgb(255, 255, 255), 10, 100, 0, "linesVisionMin %d", linesVisionMin);
+    al_draw_textf(font, al_map_rgb(255, 255, 255), 10, 110, 0, "linesVisionMax %d", linesVisionMax);
+
     for (int line = linesVisionMin; line < linesVisionMax; line++) {
         for (int column = columnsVisionMin; column < columnsVisionMax; column++) {
             value = GAMEMAP[line][column];
@@ -544,67 +566,19 @@ void drawMap() {
             mapLine = line * 10 - 10;
             mapColumn = (column * 20) + MAP_MOVE - 20;
 
-
-            bool spaceControlPersonagemPristine = spaceControlPersonagem.getPristine();
-            bool spaceControlPersonagemIsHandleble = spaceControlPersonagem.isHandleble();
-
-            /************************
-                EVENT: Dirty
-            **************************/
-            if (spaceControlPersonagemPristine == false &&
-                spaceControlPersonagemIsHandleble == true) {
-                personagemHandleDirty(mapLine, mapColumn, value);
-            }
-
-            /************************
-                EVENT: Change line
-            **************************/
-            if (savePreviewsLine != line) {
-
-
-                /**
-                Estado do personagem: FALLEN;
-
-                Calcular a colisao do personagem,
-                caso nao tenha colisao descer 1, e
-                ir ajustando a variacao de queda
-                */
-
-                // cout << "Linha: " << line << "\n";
-                // cout << "Coluna personagem: " << Joao.x << "\n";
-            }
-
-            /**
-            provável que nesse espaço, ele só irá passar 1x
+            /*
+            don't snapshot when hero stay stopped
             */
-            /************************
-                EVENT: Pristine
-            **************************/
-            if (
-                iCanHandlePersonagemFlag == true &&
-                iCanHandlePersonagem(mapLine, mapColumn) &&
-                iCanHandlePersonagemCount > 1 &&
-                spaceControlPersonagemPristine == true
-            )
-            {
-                personagemHandle(mapLine, mapColumn, value);
-                iCanHandlePersonagemCount--;
-                if (iCanHandlePersonagemCount < 0) {
-                    iCanHandlePersonagemFlag = false;
-                }
-                // cout << "one time \n";
-                spaceControlPersonagem.setPristine(false);
-            }
+            map_snapshot[line][column - columnsVisionMin] = value;
 
+            // desenho o chao
             if (value == MAP_FLOOR_INT) {
                 if (floorImage) {
                     al_draw_bitmap(floorImage, (column * 20) - 20 + MAP_MOVE, (line * 10), 0);
 
-                    for (int b = 0; b < 19; b++) {
+                    /*for (int b = 0; b < 19; b++) {
                         allFloor[line * 10 - 10][column * 20 + b + MAP_MOVE] = 1;
-                    }
-
-
+                    }*/
                     position_vertically_floor.x = column * 20;
                     position_vertically_floor.y = (line * 10) - 10;
                     /**
@@ -614,6 +588,7 @@ void drawMap() {
                 }
             }
 
+            // desenho a continuidade do chao
             if (value == MAP_INFINITE_FLOOR_INT) {
                 clayContinueI = ((GAME_HEIGHT - (line * 10)) / 20) + 2;
 
@@ -853,10 +828,10 @@ int main()
                     al_draw_bitmap_region(joaoJumpImage, 0, 0, 64, 64, Joao.x - 15, Joao.y - 54, ALLEGRO_FLIP_HORIZONTAL);
                 }
 
-                //gravity_force(&Joao);
+                // gravity_force(&Joao);
                 ghosts_action(MAP_MOVE);
 
-                //al_draw_circle(Joao.x, Joao.y, 3, al_map_rgb(255, 255, 255), 1);
+                al_draw_circle(Joao.x, Joao.y, 3, al_map_rgb(255, 255, 255), 1);
 
                 al_draw_textf(font, al_map_rgb(255, 255, 255), 10, 20, 0, "X: %f", Joao.x);
                 al_draw_textf(font, al_map_rgb(255, 255, 255), 150, 20, 0, "Y: %f", Joao.y);

@@ -66,7 +66,6 @@ bool SpaceControl::isHandleble() {
     if (absVariation > variationCount) {
         return true;
     }
-
     return false;
 }
 
