@@ -7,7 +7,7 @@
 #define DELAY_JUMP_JOAO              5
 #define GAME_HEIGHT                  600
 #define MAX_GLOBAL_DELAY             10
-int DEBUG_TIMES_TO_RUN = 1;
+int DEBUG_TIMES_TO_RUN = 5;
 int DEBUG_TIMES_TO_RUN_COUNTER = 0;
 bool DEBUG_ACTIVATED = true;
 

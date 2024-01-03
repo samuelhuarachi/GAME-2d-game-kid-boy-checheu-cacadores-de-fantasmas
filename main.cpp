@@ -198,8 +198,6 @@ void processPersonagemJump() {
 void inGameKeyDown() {
 
     processPersonagemJump();
-
-
     if( (key[ALLEGRO_KEY_A] || key[ALLEGRO_KEY_D]) && Joao.state == PERSONAGEM_ACTIONS::STOP) {
 
         if (key[ALLEGRO_KEY_A] && Joao.direction == PERSONAGEM_DIRECTIONS::RIGHT) {
@@ -419,11 +417,6 @@ void handlePersonagemFallenDirty() {
 }
 
 void personagemHandle(int mapLine, int mapColumn, int value) {
-
-    /**
-    corrigir o bug de quando ele pula no final das arestas
-    */
-
     int personagemLine = Joao.y;
     int personagemColumn = Joao.x;
 
@@ -445,22 +438,23 @@ void personagemHandle(int mapLine, int mapColumn, int value) {
     }
 
     Joao.JUMP_TIME = 0;
-
     if (Joao.state != PERSONAGEM_ACTIONS::WALKING) {
         Joao.state = PERSONAGEM_ACTIONS::STOP;
     }
-
 
     Joao.y = mapLine;
 }
 
 void personagemHandleDirty(int mapLine, int mapColumn, int value) {
     bool isCollision = false;
+
     if (Joao.state == PERSONAGEM_ACTIONS::FALLEN) {
+        //al_draw_textf(font, al_map_rgb(255, 255, 255), 10, 60, 0, "result %s", Joao.state);
+
         // handlePersonagemFallenDirty();
 
         double variation = spaceControlPersonagem.getVariation();
-        cout << "Variation founded: " << variation << "\n";
+        // cout << "Variation founded: " << variation << "\n";
 
         isCollision = personagemCheckCollisionHorizontally(mapLine, mapColumn, value);
     }
@@ -482,7 +476,6 @@ bool iCanHandlePersonagem(int mapLine, int mapColumn) {
     int personagemColumn = Joao.x;
 
     int diffLine = std::abs(personagemLine-mapLine);
-
     int diffColumn = std::abs(personagemColumn - mapColumn);
 
     if (diffLine<= 5 && diffColumn <= 10) {
@@ -560,7 +553,6 @@ void drawMap() {
             **************************/
             if (spaceControlPersonagemPristine == false &&
                 spaceControlPersonagemIsHandleble == true) {
-
                 personagemHandleDirty(mapLine, mapColumn, value);
             }
 
@@ -578,8 +570,8 @@ void drawMap() {
                 ir ajustando a variacao de queda
                 */
 
-                cout << "Linha: " << line << "\n";
-                cout << "Coluna personagem: " << Joao.x << "\n";
+                // cout << "Linha: " << line << "\n";
+                // cout << "Coluna personagem: " << Joao.x << "\n";
             }
 
             /**
@@ -589,25 +581,20 @@ void drawMap() {
                 EVENT: Pristine
             **************************/
             if (
-                    iCanHandlePersonagemFlag == true &&
-                    iCanHandlePersonagem(mapLine, mapColumn) &&
-                    iCanHandlePersonagemCount > 1 &&
-                    spaceControlPersonagemPristine == true
-                )
-                {
-
+                iCanHandlePersonagemFlag == true &&
+                iCanHandlePersonagem(mapLine, mapColumn) &&
+                iCanHandlePersonagemCount > 1 &&
+                spaceControlPersonagemPristine == true
+            )
+            {
                 personagemHandle(mapLine, mapColumn, value);
-
                 iCanHandlePersonagemCount--;
-
                 if (iCanHandlePersonagemCount < 0) {
                     iCanHandlePersonagemFlag = false;
                 }
-
-                cout << "one time \n";
+                // cout << "one time \n";
                 spaceControlPersonagem.setPristine(false);
             }
-
 
             if (value == MAP_FLOOR_INT) {
                 if (floorImage) {
@@ -638,12 +625,9 @@ void drawMap() {
                 }
             }
 
-
-
             savePreviewsLine = line;
         }
     }
-
 
     DEBUG_TIMES_TO_RUN_COUNTER++;
 }
@@ -654,8 +638,6 @@ int main()
     /**
     criando uma instancia do meu Helper ...
     */
-
-
     spaceControlPersonagem.teste();
 
     /**
@@ -822,29 +804,19 @@ int main()
         if (redraw && al_is_event_queue_empty(queue)) // renderiza imagens
         {
             al_clear_to_color(al_map_rgb(0, 0, 0));
-
-
             //al_draw_text(font, al_map_rgb(255, 255, 255), 10, 5, 0, "KBC Game v0.0.1");
-
-
             if (cutscene == CUTSCENE::INGAME) {
-
                 /*
                 if (nightImage) {
                     al_draw_bitmap(nightImage, 0, 0, 0);
                 }*/
 
-
                 // draw moon
                 if (moonImage) {
                     al_draw_bitmap(moonImage, 369, 167, 0);
                 }
-
-
                 //moveClouds(MAP_MOVE);
-
                 // drawFloor("map1.txt", MAP_MOVE);
-
                 processDelay();
                 drawMap();
 
@@ -858,8 +830,6 @@ int main()
                 }
 
                 if (Joao.state == PERSONAGEM_ACTIONS::WALKING && Joao.direction == RIGHT && joaoRunningImage) {
-
-
                     al_draw_bitmap_region(joaoRunningImage, (Joao.CURRENT_SPRITE_RUNNING * 64), 0, 64, 64, Joao.x - 15, Joao.y - 54, 0);
                 }
 
@@ -883,10 +853,7 @@ int main()
                     al_draw_bitmap_region(joaoJumpImage, 0, 0, 64, 64, Joao.x - 15, Joao.y - 54, ALLEGRO_FLIP_HORIZONTAL);
                 }
 
-
-
                 //gravity_force(&Joao);
-
                 ghosts_action(MAP_MOVE);
 
                 //al_draw_circle(Joao.x, Joao.y, 3, al_map_rgb(255, 255, 255), 1);
