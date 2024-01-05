@@ -25,6 +25,7 @@ O personagem anda de 5 em 5, aparentemente
 #include <math.h>
 #include <array>
 #include <iterator>
+#include <cmath>
 
 using namespace std;
 
@@ -189,7 +190,7 @@ void inGamePressing() {
     processWalkingAndAnimationWalking();
 }
 
-void processPersonagemJump() {
+/* void processPersonagemJump() {
 
     if(
        key[ALLEGRO_KEY_SPACE] &&
@@ -200,11 +201,19 @@ void processPersonagemJump() {
         Joao.state = PERSONAGEM_ACTIONS::JUMP;
         jumpPersonagem(&Joao);
     }
-}
+} */
 
 void inGameKeyDown() {
 
-    processPersonagemJump();
+    //processPersonagemJump();
+    if(
+       key[ALLEGRO_KEY_SPACE] &&
+       isPersonagemNotJump() &&
+       isPersonagemNotFallen()
+    ){
+        Joao.state = PERSONAGEM_ACTIONS::JUMP;
+        // jumpPersonagem(&Joao);
+    }
     if( (key[ALLEGRO_KEY_A] || key[ALLEGRO_KEY_D]) && Joao.state == PERSONAGEM_ACTIONS::STOP) {
 
         if (key[ALLEGRO_KEY_A] && Joao.direction == PERSONAGEM_DIRECTIONS::RIGHT) {
@@ -519,7 +528,6 @@ void drawMap() {
 
     if (DEBUG_TIMES_TO_RUN_COUNTER >= DEBUG_TIMES_TO_RUN &&
         DEBUG_ACTIVATED == true) {
-
       return;
     }
 
@@ -532,7 +540,7 @@ void drawMap() {
     }*/
 
     /*
-    reset snapshot map
+    reset map snapshot
     */
     for (int i = 0; i < 60; i++) {
         for (int j = 0; j < 41; j++) {
@@ -607,50 +615,46 @@ void drawMap() {
     DEBUG_TIMES_TO_RUN_COUNTER++;
 }
 
+bool processing_joao_fallen() {
+    int factor_fallen = 2;
+
+    // analysis path
+    // 1- checking column...
+    int column;
+    if (Joao.x < 20) {
+        column = 0;
+    } else {
+        column = (int)(Joao.x / 20);
+    }
+
+    // 2 - checking path (y axis)
+    float position = Joao.y;
+    int positionAjustMinor = trunc((position / 10));
+
+    // 3 - finding collision
+    bool colission = false;
+    for (int i = 0; i < factor_fallen; i++) {
+        positionAjustMinor = positionAjustMinor + 1;
+        int map_value = map_snapshot[positionAjustMinor][column];
+
+        if (map_value == MAP_FLOOR_INT) {
+            Joao.y = (positionAjustMinor * 10) - 10;
+            Joao.state = STOP;
+            Joao.time = 0;
+            colission = true;
+            break;
+        }
+    }
+    Joao.y = (positionAjustMinor * 10) - 10;
+    return colission;
+}
+
 int main()
 {
-
     /**
     criando uma instancia do meu Helper ...
     */
     spaceControlPersonagem.teste();
-
-    /**
-    Colocar uma variavel flag para apontar quantas vezes o mapa devera ser rederizado
-    antes de sair do software.
-    Isso para ajudar no debug do jogo.
-    */
-
-    /**
-    Testando a funcao de fisica do jogo
-    */
-    double finalPosition1 = PhysicalMUV_S(-2.5, 15.0, 1.0);
-    double finalPosition2 = PhysicalMUV_S(-2.5, 15.0, 2.0);
-    double finalPosition3 = PhysicalMUV_S(-2.5, 15.0, 3.0);
-    double finalPosition4 = PhysicalMUV_S(-2.5, 15.0, 4.0);
-    double finalPosition5 = PhysicalMUV_S(-2.5, 15.0, 5.0);
-    double finalPosition6 = PhysicalMUV_S(-2.5, 15.0, 6.0);
-
-    double finalPosition7 = PhysicalMUV_S(-2.5, 15.0, 7.0);
-    double finalPosition8 = PhysicalMUV_S(-2.5, 15.0, 8.0);
-    double finalPosition9 = PhysicalMUV_S(-2.5, 15.0, 9.0);
-    double finalPosition10 = PhysicalMUV_S(-2.5, 15.0, 10.0);
-    double finalPosition11 = PhysicalMUV_S(-2.5, 15.0, 11.0);
-    double finalPosition12 = PhysicalMUV_S(-2.5, 15.0, 12.0);
-
-    printf("Final position %f \n", finalPosition1);
-    printf("Final position %f \n", finalPosition2);
-    printf("Final position %f \n", finalPosition3);
-    printf("Final position %f \n", finalPosition4);
-    printf("Final position %f \n", finalPosition5);
-    printf("Final position %f \n", finalPosition6);
-
-    printf("Final position %f \n", finalPosition7);
-    printf("Final position %f \n", finalPosition8);
-    printf("Final position %f \n", finalPosition9);
-    printf("Final position %f \n", finalPosition10);
-    printf("Final position %f \n", finalPosition11);
-    printf("Final position %f \n", finalPosition12);
 
     array_clouds.clear();
 
@@ -683,7 +687,6 @@ int main()
     al_register_event_source(queue, al_get_display_event_source(disp));
     al_register_event_source(queue, al_get_timer_event_source(timer));
 
-
     bool done = false;
     bool redraw = true;
 
@@ -713,7 +716,7 @@ int main()
     /**
     carregando o mapa para o vetor
     */
-    string fase1 = "map1.txt";
+    string fase1 = "map2.txt";
     loadMap(fase1);
 
     while(1)
@@ -729,11 +732,8 @@ int main()
                     inGamePressing();
                 }
 
-
                 for(int i = 0; i < ALLEGRO_KEY_MAX; i++)
                     key[i] &= KEY_SEEN;
-
-
                 break;
 
             case ALLEGRO_EVENT_KEY_DOWN: // key down na tecla
@@ -750,23 +750,16 @@ int main()
 
                 break;
             case ALLEGRO_EVENT_KEY_UP: // key up na tecla
-
                 if (cutscene == CUTSCENE::INGAME) {
-
-
                     if(  key[ALLEGRO_KEY_A] || key[ALLEGRO_KEY_D]  ) {
-
-
                         if (Joao.state != PERSONAGEM_ACTIONS::FALLEN && Joao.state != PERSONAGEM_ACTIONS::JUMP) {
                             Joao.state = PERSONAGEM_ACTIONS::STOP;
                         }
-
                         Joao.CURRENT_SPRITE_RUNNING = 0;
                     }
                 }
 
                 key[event.keyboard.keycode] &= KEY_RELEASED;
-
                 break;
             case ALLEGRO_EVENT_DISPLAY_CLOSE:
                 done = true;
@@ -828,15 +821,23 @@ int main()
                     al_draw_bitmap_region(joaoJumpImage, 0, 0, 64, 64, Joao.x - 15, Joao.y - 54, ALLEGRO_FLIP_HORIZONTAL);
                 }
 
+                if (Joao.state == PERSONAGEM_ACTIONS::FALLEN) {
+                    processing_joao_fallen();
+                }
+
+                if (Joao.state == PERSONAGEM_ACTIONS::JUMP) {
+                    jumpPersonagem(&Joao);
+                }
+
                 // gravity_force(&Joao);
-                ghosts_action(MAP_MOVE);
+                //ghosts_action(MAP_MOVE);
 
                 al_draw_circle(Joao.x, Joao.y, 3, al_map_rgb(255, 255, 255), 1);
 
                 al_draw_textf(font, al_map_rgb(255, 255, 255), 10, 20, 0, "X: %f", Joao.x);
                 al_draw_textf(font, al_map_rgb(255, 255, 255), 150, 20, 0, "Y: %f", Joao.y);
-
                 al_draw_textf(font, al_map_rgb(255, 255, 255), 10, 40, 0, "MAP_MOVE: %d", MAP_MOVE);
+                al_draw_textf(font, al_map_rgb(255, 255, 255), 10, 130, 0, "state: %d", Joao.state);
 
             }
 
@@ -850,10 +851,6 @@ int main()
         }
     }
 
-
     destroyImagesAndAnothers();
-
-
-
     return 0;
 }

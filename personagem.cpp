@@ -1,5 +1,5 @@
 #include <iostream>
-
+#include "physical.h"
 
 
 enum PERSONAGEM_ACTIONS {
@@ -23,6 +23,7 @@ typedef struct PERSONAGEM
     int topAceleration;
     int aceleration;
     float speed;
+    float last_muv_s;
     float time;
     bool locked = false;
     float life = 100;
@@ -284,16 +285,24 @@ bool isMaxLimitMoveRight(PERSONAGEM p) {
 }
 
 void jumpPersonagem(PERSONAGEM *p) {
-    p->aceleration = 14; // aceleration = impulso para cima
+    p->time = p->time + 1.0;
+    double s_position = PhysicalMUV_S(p->aceleration, 7.0, p->time);
+
+    if (p->last_muv_s < s_position) {
+         p->y = p->y - s_position;
+    } else {
+        p->state = PERSONAGEM_ACTIONS::FALLEN;
+    }
 }
 
 void inicializePersonagem(PERSONAGEM *p) {
     p->x = 10;
-    p->y = 100;
+    p->y = 155.7;
     p->topSpeed = 10;
     p->topAceleration = 5;
     p->speed = 0;
-    p->aceleration = 0;
+    p->aceleration = -1.5;
     p->time = 0;
+    p->last_muv_s = 0;
 }
 
