@@ -1,11 +1,13 @@
+- mapa deve andar pra baixo kkkkk ....
+- colisao lateral
+- fazer o save do jogo
+
 - fazer parede grandona de obstaculo, pensei que fazer uma image grande da parede
 - na hora que ele cai, precisa checar colisao com a lateral y tambem
 - fazer o movimento de fall do personagem, com as perninhas abertas
 - funcao para adicionar chao ao array allFloor, e jogar o chao em uma matriz
 - limpar do array o que esta vizivel na tela  - parece que foi feito
 - desenhar apenas a parte do mapa que esta visivel na tela - parece que foi feito
-- colisao lateral
-- fazer o save do jogo
 
 https://www.w3schools.com/cpp/cpp_classes.asp
 https://www.learncpp.com/cpp-tutorial/class-code-and-header-files/

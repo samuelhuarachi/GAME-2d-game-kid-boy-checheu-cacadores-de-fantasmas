@@ -165,7 +165,7 @@ bool isDelayReadyForAction() {
 }
 
 
-void processWalkingAndAnimationWalking() {
+void processWalking() {
 
     if(isMoveRightOrLeft() &&
        isPersonagemNotFallen() &&
@@ -175,9 +175,13 @@ void processWalkingAndAnimationWalking() {
         Joao.state = PERSONAGEM_ACTIONS::WALKING;
 
         if (isDelayReadyForAction()) {
-
             controller_sprite_running(&Joao);
         }
+
+        /**
+        verificar a colisao com o chao ...
+        */
+
     }
 }
 
@@ -187,7 +191,7 @@ void inGamePressing() {
 
     processMoveLeft();
 
-    processWalkingAndAnimationWalking();
+    processWalking();
 }
 
 /* void processPersonagemJump() {
@@ -615,8 +619,14 @@ void drawMap() {
     DEBUG_TIMES_TO_RUN_COUNTER++;
 }
 
-bool processing_joao_fallen() {
+void processing_joao_fallen() {
     int factor_fallen = 2;
+    // break pra nao cair infinito
+    if (Joao.y >= 1000.0) {
+        Joao.y = 1000.0;
+        Joao.state = PERSONAGEM_ACTIONS::STOP;
+        return;
+    }
 
     // analysis path
     // 1- checking column...
@@ -646,7 +656,6 @@ bool processing_joao_fallen() {
         }
     }
     Joao.y = (positionAjustMinor * 10) - 10;
-    return colission;
 }
 
 int main()
@@ -828,6 +837,8 @@ int main()
                 if (Joao.state == PERSONAGEM_ACTIONS::JUMP) {
                     jumpPersonagem(&Joao);
                 }
+
+                // se parado ou andando, verificar se tem piso no chao, senao, cair denoovo kkkkk
 
                 // gravity_force(&Joao);
                 //ghosts_action(MAP_MOVE);
