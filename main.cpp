@@ -1,8 +1,6 @@
 /*
 Observações:
-
 O personagem anda de 5 em 5, aparentemente
-
 */
 
 #include <allegro5/allegro.h>
@@ -12,7 +10,6 @@ O personagem anda de 5 em 5, aparentemente
 #include <allegro5/allegro_primitives.h>
 #include <allegro5/allegro_audio.h>
 #include <allegro5/allegro_acodec.h>
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <typeinfo>
@@ -46,11 +43,27 @@ using std::vector;
 #include "introduction.cpp"
 #include "physical.h"
 
-
-
-
 // tutorial allegro 5 https://github.com/liballeg/allegro_wiki/wiki/Allegro-Vivace%3A-Graphics
 // physics 2D => http://chipmunk-physics.net/release/ChipmunkLatest-Docs/#Intro-HelloChipmunk
+/**
+Essa funcao recebe o eixo x (eixo x, eixo das colunas) do personagem, e
+retorna a posicao dele no snapshot do mapa
+*/
+int get_column_in_snapshot_by_hero_x(float hero_x) {
+    int column;
+    if (hero_x < 20) {
+        column = 0;
+    } else {
+        column = (int)(Joao.x / 20);
+    }
+
+    return column;
+}
+
+int get_line_in_snapshot_by_hero_y(float hero_y) {
+    float position = hero_y;
+    return trunc((position / 10));
+}
 
 void defaultLoad() {
     allegro_inicializar();
@@ -62,22 +75,17 @@ void defaultLoad() {
 }
 
 bool isMovingRight(int key) {
-
-
     if (key) {
         return true;
     }
-
     return false;
 }
 
 
 bool isMovingLeft(int key) {
-
     if (key) {
         return true;
     }
-
     return false;
 }
 
@@ -93,13 +101,8 @@ void moveMapToLeft() {
     MAP_MOVE = MAP_MOVE - MAP_MOVE_SPEED;
 }
 
-
 void processMoveRight() {
-
-
-
     if(isMovingRight(key[ALLEGRO_KEY_D]) && isNotInLimitOfMovementHorizontally() ) {
-
         //bool colisionFloorVertically = check_colision_with_floor_vertically(Joao);
         bool colisionFloorVertically = false;
 
@@ -114,13 +117,8 @@ void processMoveRight() {
 }
 
 void processMoveLeft() {
-
     if(isMovingLeft(key[ALLEGRO_KEY_A]) && isNotInLimitOfMovementHorizontally()) {
-                        // movendo para a esquerda
-
-        //bool colision = check_colision_with_floor_vertically(Joao, -25);
         bool colision = false;
-
         if (MAP_MOVE < 0 & colision == false) {
             MAP_MOVE = MAP_MOVE + MAP_MOVE_SPEED;
         } else {
@@ -128,7 +126,6 @@ void processMoveLeft() {
                 Joao.x = Joao.x - 5;
             }
         }
-
         Joao.direction = LEFT;
     }
 }
@@ -137,7 +134,6 @@ bool isMoveRightOrLeft() {
     if (key[ALLEGRO_KEY_A] || key[ALLEGRO_KEY_D]) {
         return true;
     }
-
     return false;
 }
 
@@ -145,7 +141,6 @@ bool isPersonagemNotFallen() {
     if (Joao.state != PERSONAGEM_ACTIONS::FALLEN) {
         return true;
     }
-
     return false;
 }
 
@@ -160,63 +155,49 @@ bool isDelayReadyForAction() {
     if (CURRENT_MAX_GLOBAL_DELAY == 0) {
         return true;
     }
-
     return false;
 }
 
 
-void processWalking() {
-
+void processWalking(PERSONAGEM *p) {
     if(isMoveRightOrLeft() &&
        isPersonagemNotFallen() &&
        isPersonagemNotJump()
        ) {
 
-        Joao.state = PERSONAGEM_ACTIONS::WALKING;
+        p->state = PERSONAGEM_ACTIONS::WALKING;
 
         if (isDelayReadyForAction()) {
-            controller_sprite_running(&Joao);
+            controller_sprite_running(p);
         }
 
         /**
         verificar a colisao com o chao ...
         */
-
+        int REACH_FLOOR_AJUST = 2;
+        int column_snapshot = get_column_in_snapshot_by_hero_x(p->x);
+        int line_snapshot = get_line_in_snapshot_by_hero_y(p->y);
+        int map_value = map_snapshot[line_snapshot + REACH_FLOOR_AJUST][column_snapshot];
+        if (map_value == MAP_AIR_INT) {
+            p->state = PERSONAGEM_ACTIONS::FALLEN;
+        }
     }
 }
 
-void inGamePressing() {
-
+void holdingKey() {
     processMoveRight();
-
     processMoveLeft();
-
-    processWalking();
+    processWalking(&Joao);
 }
-
-/* void processPersonagemJump() {
-
-    if(
-       key[ALLEGRO_KEY_SPACE] &&
-       isPersonagemNotJump() &&
-       isPersonagemNotFallen()
-    ){
-
-        Joao.state = PERSONAGEM_ACTIONS::JUMP;
-        jumpPersonagem(&Joao);
-    }
-} */
 
 void inGameKeyDown() {
 
-    //processPersonagemJump();
     if(
        key[ALLEGRO_KEY_SPACE] &&
        isPersonagemNotJump() &&
        isPersonagemNotFallen()
     ){
         Joao.state = PERSONAGEM_ACTIONS::JUMP;
-        // jumpPersonagem(&Joao);
     }
     if( (key[ALLEGRO_KEY_A] || key[ALLEGRO_KEY_D]) && Joao.state == PERSONAGEM_ACTIONS::STOP) {
 
@@ -270,13 +251,10 @@ void loadingImages() {
 }
 
 void introKeyDown() {
-
     if(key[ALLEGRO_KEY_SPACE]) {
-
         cutscene = CUTSCENE::INGAME;
         al_stop_sample(&intro_sound_kbc);
         al_destroy_sample(introAudio);
-
         array_clouds.clear();
         //loadCloudsPosition("map1.txt");
         loadGhostsPosition("map1.txt");
@@ -354,157 +332,6 @@ void loadMap(string txtFile) {
 }
 
 
-bool personagemCheckCollisionHorizontally(int mapLine, int mapColumn, int value) {
-    int personagemLine = Joao.y;
-    int personagemColumn = Joao.x;
-
-    //&& mapColumn == personagemColumn
-    //mapLine == personagemLine &&
-
-    if (value == MAP_AIR_INT) {
-        return false;
-    }
-
-    return true;
-}
-
-void handlePersonagemJump() {
-
-    double timeDelay = 0.5;
-    double initialVelocity = 30;
-    double positionInitial = PhysicalMUV_S(
-                                           Joao.gravity_aceleration,
-                                           initialVelocity,
-                                           Joao.JUMP_TIME - timeDelay);
-    double positionFinal = PhysicalMUV_S(
-                                         Joao.gravity_aceleration,
-                                         initialVelocity,
-                                         Joao.JUMP_TIME);
-    double variation = positionFinal - positionInitial;
-
-    if (variation < 0) {
-        Joao.state = PERSONAGEM_ACTIONS::FALLEN;
-        return;
-    }
-
-    Joao.y = Joao.y - variation;
-    Joao.JUMP_TIME = Joao.JUMP_TIME + timeDelay;
-}
-
-void handlePersonagemFallen() {
-    double timeDelay = 0.5;
-    double initialVelocity = 30;
-
-    double positionInitial = PhysicalMUV_S(
-                                           Joao.gravity_aceleration,
-                                           initialVelocity,
-                                           Joao.JUMP_TIME - timeDelay);
-    double positionFinal = PhysicalMUV_S(
-                                         Joao.gravity_aceleration,
-                                         initialVelocity,
-                                         Joao.JUMP_TIME);
-    double variation = positionFinal - positionInitial;
-
-
-    /**
-    declaro a próxima posição da queda do personagem
-    */
-    spaceControlPersonagem.setVariation(variation);
-
-    //Joao.y = Joao.y - variation;
-
-    Joao.JUMP_TIME = Joao.JUMP_TIME + timeDelay;
-}
-
-
-/**
-funcao comentada no momento
-nao estou manipulando a queda do evento dirty do personagem
-*/
-void handlePersonagemFallenDirty() {
-
-    double variation = spaceControlPersonagem.getVariation();
-    double variationCount = spaceControlPersonagem.getVariationCount();
-
-    double variationBetweensVariations = std::abs(std::abs(variation) - variationCount);
-
-    if (variationBetweensVariations < 1) {
-        Joao.y = Joao.y - variation;
-        return;
-    }
-
-    Joao.y = Joao.y - (-1 * variationCount);
-}
-
-void personagemHandle(int mapLine, int mapColumn, int value) {
-    int personagemLine = Joao.y;
-    int personagemColumn = Joao.x;
-
-    if (Joao.state == PERSONAGEM_ACTIONS::JUMP) {
-        handlePersonagemJump();
-        return;
-    }
-
-    if (Joao.state == PERSONAGEM_ACTIONS::FALLEN) {
-        handlePersonagemFallen();
-        return;
-    }
-
-    bool isCollision = personagemCheckCollisionHorizontally(mapLine, mapColumn, value);
-
-    if (!isCollision) {
-        Joao.state = PERSONAGEM_ACTIONS::FALLEN;
-        return;
-    }
-
-    Joao.JUMP_TIME = 0;
-    if (Joao.state != PERSONAGEM_ACTIONS::WALKING) {
-        Joao.state = PERSONAGEM_ACTIONS::STOP;
-    }
-
-    Joao.y = mapLine;
-}
-
-void personagemHandleDirty(int mapLine, int mapColumn, int value) {
-    bool isCollision = false;
-
-    if (Joao.state == PERSONAGEM_ACTIONS::FALLEN) {
-        //al_draw_textf(font, al_map_rgb(255, 255, 255), 10, 60, 0, "result %s", Joao.state);
-
-        // handlePersonagemFallenDirty();
-
-        double variation = spaceControlPersonagem.getVariation();
-        // cout << "Variation founded: " << variation << "\n";
-
-        isCollision = personagemCheckCollisionHorizontally(mapLine, mapColumn, value);
-    }
-
-    if (isCollision == true) {
-        //cout << "colidiu";
-        Joao.state = PERSONAGEM_ACTIONS::STOP;
-    }
-
-    /**
-    conta a quantidade de vezes que eu manipulei o personagem
-    */
-    spaceControlPersonagem.handle();
-}
-
-bool iCanHandlePersonagem(int mapLine, int mapColumn) {
-
-    int personagemLine = Joao.y;
-    int personagemColumn = Joao.x;
-
-    int diffLine = std::abs(personagemLine-mapLine);
-    int diffColumn = std::abs(personagemColumn - mapColumn);
-
-    if (diffLine<= 5 && diffColumn <= 10) {
-        return true;
-    }
-
-    return false;
-}
-
 void drawMap() {
 
     while (!floorImage) {
@@ -519,11 +346,9 @@ void drawMap() {
 
     int columnsVisionMin = ((MAP_MOVE * -1) / 20) + 1;
     int columnsVisionMax = 41 + ((MAP_MOVE * -1) / 20) + 1;
-
     int linesVisionMin = 0;
     int linesVisionMax = 60;
     int value;
-
     int result = GAMEMAP[0][0];
 
     al_draw_textf(font, al_map_rgb(255, 255, 255), 10, 60, 0, "result %d", result);
@@ -534,14 +359,6 @@ void drawMap() {
         DEBUG_ACTIVATED == true) {
       return;
     }
-
-    // zera as posicoes tanto do chao, quanto do chao na vertical
-    /*for (int i = 0; i < 1999; i++) {
-        for (int j = 0; j < 1999; j++) {
-            allFloor[i][j] = 0; // parece que uso para identificar colisões
-            allVerticallyFloor[i][j] = 0; // parece que não estou usando
-        }
-    }*/
 
     /*
     reset map snapshot
@@ -630,16 +447,10 @@ void processing_joao_fallen() {
 
     // analysis path
     // 1- checking column...
-    int column;
-    if (Joao.x < 20) {
-        column = 0;
-    } else {
-        column = (int)(Joao.x / 20);
-    }
+    int column = get_column_in_snapshot_by_hero_x(Joao.x);
 
     // 2 - checking path (y axis)
-    float position = Joao.y;
-    int positionAjustMinor = trunc((position / 10));
+    int positionAjustMinor = get_line_in_snapshot_by_hero_y(Joao.y);
 
     // 3 - finding collision
     bool colission = false;
@@ -664,17 +475,11 @@ int main()
     criando uma instancia do meu Helper ...
     */
     spaceControlPersonagem.teste();
-
     array_clouds.clear();
-
     inicializePersonagem(&Joao);
-
     defaultLoad();
-
     al_reserve_samples(10);
-
     introAudio = al_load_sample("./sounds/intro.ogg");
-
     if (!introAudio) {
         printf("nao carregaou a musica de introducao");
     }
@@ -686,12 +491,9 @@ int main()
 
     timer = al_create_timer(1.0 / 60.0);
     queue = al_create_event_queue();
-
     //al_set_new_display_flags(ALLEGRO_FULLSCREEN);
-
     disp = al_create_display(800, GAME_HEIGHT);
     font = al_create_builtin_font();
-
     al_register_event_source(queue, al_get_keyboard_event_source());
     al_register_event_source(queue, al_get_display_event_source(disp));
     al_register_event_source(queue, al_get_timer_event_source(timer));
@@ -700,9 +502,7 @@ int main()
     bool redraw = true;
 
     ALLEGRO_EVENT event;
-
     al_start_timer(timer);
-
     if(!al_init_image_addon())
     {
         printf("couldn't initialize image addon\n");
@@ -710,14 +510,11 @@ int main()
     }
 
     loadingImages();
-
     ALLEGRO_KEYBOARD_STATE ks;
     #define KEY_SEEN     1
     #define KEY_RELEASED 2
-
     //unsigned char key[ALLEGRO_KEY_MAX];
     memset(key, 0, sizeof(key));
-
     //ALLEGRO_MONITOR_INFO monitorInfo;
     //al_get_monitor_info(0, &monitorInfo);
     //al_set_new_display_flags(ALLEGRO_FULLSCREEN);
@@ -725,20 +522,18 @@ int main()
     /**
     carregando o mapa para o vetor
     */
-    string fase1 = "map2.txt";
+    string fase1 = "map1.txt";
     loadMap(fase1);
-
     while(1)
     {
         al_wait_for_event(queue, &event);
-
         switch(event.type)
         {
-            case ALLEGRO_EVENT_TIMER: // Pressionando a tecla
+            case ALLEGRO_EVENT_TIMER: // Holding key
                 redraw = true;
 
                 if (cutscene == CUTSCENE::INGAME) {
-                    inGamePressing();
+                    holdingKey();
                 }
 
                 for(int i = 0; i < ALLEGRO_KEY_MAX; i++)
@@ -753,7 +548,6 @@ int main()
                 }
 
                 if (cutscene == CUTSCENE::INTRO) {
-
                     introKeyDown();
                 }
 
@@ -839,19 +633,16 @@ int main()
                 }
 
                 // se parado ou andando, verificar se tem piso no chao, senao, cair denoovo kkkkk
-
-                // gravity_force(&Joao);
                 //ghosts_action(MAP_MOVE);
 
                 al_draw_circle(Joao.x, Joao.y, 3, al_map_rgb(255, 255, 255), 1);
-
                 al_draw_textf(font, al_map_rgb(255, 255, 255), 10, 20, 0, "X: %f", Joao.x);
                 al_draw_textf(font, al_map_rgb(255, 255, 255), 150, 20, 0, "Y: %f", Joao.y);
                 al_draw_textf(font, al_map_rgb(255, 255, 255), 10, 40, 0, "MAP_MOVE: %d", MAP_MOVE);
                 al_draw_textf(font, al_map_rgb(255, 255, 255), 10, 130, 0, "state: %d", Joao.state);
-
             }
 
+            /* ### INTRO ###*/
             if (cutscene == CUTSCENE::INTRO) {
                 intro_timer_controller();
                 introduction_start(font);
@@ -861,7 +652,6 @@ int main()
             redraw = false;
         }
     }
-
     destroyImagesAndAnothers();
     return 0;
 }
