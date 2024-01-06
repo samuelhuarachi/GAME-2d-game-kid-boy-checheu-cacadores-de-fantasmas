@@ -81,6 +81,13 @@ bool isMovingRight(int key) {
     return false;
 }
 
+bool am_i_pressing_key(int key) {
+    if (key) {
+        return true;
+    }
+    return false;
+}
+
 
 bool isMovingLeft(int key) {
     if (key) {
@@ -99,21 +106,6 @@ void processDelay() {
 
 void moveMapToLeft() {
     MAP_MOVE = MAP_MOVE - MAP_MOVE_SPEED;
-}
-
-void processMoveRight() {
-    if(isMovingRight(key[ALLEGRO_KEY_D]) && isNotInLimitOfMovementHorizontally() ) {
-        //bool colisionFloorVertically = check_colision_with_floor_vertically(Joao);
-        bool colisionFloorVertically = false;
-
-        if (!isMaxLimitMoveRight(Joao) & !colisionFloorVertically) {
-            movePersonagemToRight(&Joao);
-        } else if(!colisionFloorVertically) {
-            moveMapToLeft();
-        }
-
-        Joao.direction = RIGHT;
-    }
 }
 
 void processMoveLeft() {
@@ -158,6 +150,31 @@ bool isDelayReadyForAction() {
     return false;
 }
 
+bool can_i_move_to_right(PERSONAGEM *p) {
+    /**
+    Verificar se tem colisao com as paredes da direita (colisao vertical, apenas com elementos a 1, e 2 nivel do solo);
+    */
+    int REACH_FLOOR_AJUST_NIVEL_1 = -1;
+    int REACH_FLOOR_AJUST_NIVEL_2 = -3;
+    int column_snapshot = get_column_in_snapshot_by_hero_x(p->x) + 2;
+    int line_snapshot_lvl_1 = get_line_in_snapshot_by_hero_y(p->y) + REACH_FLOOR_AJUST_NIVEL_1;
+    int line_snapshot_lvl_2 = get_line_in_snapshot_by_hero_y(p->y) + REACH_FLOOR_AJUST_NIVEL_2;
+    int map_value_lvl_1 = map_snapshot[line_snapshot_lvl_1][column_snapshot];
+    int map_value_lvl_2 = map_snapshot[line_snapshot_lvl_2][column_snapshot];
+
+    if (map_value_lvl_1 == MAP_FLOOR_INT || map_value_lvl_2 == MAP_FLOOR_INT) {
+        return false;
+    }
+    return isNotInLimitOfMovementHorizontally();
+}
+
+bool am_i_pressing_right_key() {
+    return am_i_pressing_key(key[ALLEGRO_KEY_D]);
+}
+
+bool am_i_walking(PERSONAGEM *p) {
+    return (p->state == PERSONAGEM_ACTIONS::WALKING);
+}
 
 void processWalking(PERSONAGEM *p) {
     if(isMoveRightOrLeft() &&
@@ -182,10 +199,18 @@ void processWalking(PERSONAGEM *p) {
             p->state = PERSONAGEM_ACTIONS::FALLEN;
         }
     }
+
+    if (am_i_pressing_right_key() && can_i_move_to_right(p)) {
+        if (!isMaxLimitMoveRight(Joao)) {
+             p->x = p->x + 5;
+        } else {
+            moveMapToLeft();
+        }
+        p->direction = PERSONAGEM_DIRECTIONS::RIGHT;
+    }
 }
 
 void holdingKey() {
-    processMoveRight();
     processMoveLeft();
     processWalking(&Joao);
 }

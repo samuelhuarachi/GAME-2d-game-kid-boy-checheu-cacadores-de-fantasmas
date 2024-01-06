@@ -137,13 +137,10 @@ bool check_colision_with_floor(PERSONAGEM *p) {
 }
 
 bool isNotInLimitOfMovementHorizontally() {
-
-
     if (Joao.x < 0) {
         Joao.x = 0;
         return false;
     }
-
     return true;
 }
 
