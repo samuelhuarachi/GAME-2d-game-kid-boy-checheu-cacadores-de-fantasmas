@@ -7,8 +7,8 @@
 - implementar um pulo pra baixo
 - adicionar vida ao hero
 - fazer um trampolim
-- fazer o movimento do personagem ser variavel, ao caminhar
-
+- fazer o movimento do personagem acelerado
+- plataformas que se mechem no ar
 
 - fazer parede grandona de obstaculo, pensei que fazer uma image grande da parede
 - na hora que ele cai, precisa checar colisao com a lateral y tambem

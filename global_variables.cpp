@@ -1,7 +1,7 @@
 #define ACELERACAO_GRAVIDADE         1
 #define MAX_FALL                     10
 #define MAX_PERSONAGEM_MOVE_RIGHT    340
-#define MAP_MOVE_SPEED               5
+#define MAP_MOVE_SPEED               3.5
 #define HOUSE_1_WIDTH                160
 #define HOUSE_1_HEIGTH               168
 #define DELAY_JUMP_JOAO              5

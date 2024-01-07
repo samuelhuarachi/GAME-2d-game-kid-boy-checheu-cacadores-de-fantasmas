@@ -101,24 +101,6 @@ void processDelay() {
     }
 }
 
-void moveMapToLeft() {
-    MAP_MOVE = MAP_MOVE - MAP_MOVE_SPEED;
-}
-
-void processMoveLeft() {
-    if(isMovingLeft(key[ALLEGRO_KEY_A]) && isNotInLimitOfMovementHorizontally()) {
-        bool colision = false;
-        if (MAP_MOVE < 0 & colision == false) {
-            MAP_MOVE = MAP_MOVE + MAP_MOVE_SPEED;
-        } else {
-            if (colision == false) {
-                Joao.x = Joao.x - 5;
-            }
-        }
-        Joao.direction = LEFT;
-    }
-}
-
 bool isMoveRightOrLeft() {
     if (key[ALLEGRO_KEY_A] || key[ALLEGRO_KEY_D]) {
         return true;
@@ -191,7 +173,7 @@ bool am_i_walking(PERSONAGEM *p) {
     return (p->state == PERSONAGEM_ACTIONS::WALKING);
 }
 
-void processWalking(PERSONAGEM *p) {
+void process_walking(PERSONAGEM *p) {
 
     /**
     That's part i'm check the floor collision
@@ -226,34 +208,37 @@ void processWalking(PERSONAGEM *p) {
     }
 
     /**
-    that's part i check vertical collision
+    that's part i check vertical collision in right
     */
     if (am_i_pressing_right_key()) {
         p->direction = PERSONAGEM_DIRECTIONS::RIGHT;
         if (can_i_move(p)) {
-            if (!isMaxLimitMoveRight(Joao)) {
-                 p->x = p->x + 5;
+            if (!isMaxLimitMoveRight(p)) {
+                 p->x = p->x + 3.5;
             } else {
-                moveMapToLeft();
+                MAP_MOVE = MAP_MOVE - MAP_MOVE_SPEED;
             }
         }
     }
 
+    /**
+    that's part i check vertical collision in left
+    */
     if (am_i_pressing_left_key()) {
         p->direction = PERSONAGEM_DIRECTIONS::LEFT;
         if(can_i_move(p)) {
             if (MAP_MOVE < 0) {
                 MAP_MOVE = MAP_MOVE + MAP_MOVE_SPEED;
             } else {
-                p->x = p->x - 5;
+                p->x = p->x - 3.5;
             }
         }
     }
 }
 
+// in this point, you are holding some key
 void holdingKey() {
-    // processMoveLeft();
-    processWalking(&Joao);
+    process_walking(&Joao);
 }
 
 void inGameKeyDown() {
@@ -264,36 +249,6 @@ void inGameKeyDown() {
        isPersonagemNotFallen()
     ){
         Joao.state = PERSONAGEM_ACTIONS::JUMP;
-    }
-    if( (key[ALLEGRO_KEY_A] || key[ALLEGRO_KEY_D]) && Joao.state == PERSONAGEM_ACTIONS::STOP) {
-
-        if (key[ALLEGRO_KEY_A] && Joao.direction == PERSONAGEM_DIRECTIONS::RIGHT) {
-            Joao.x = Joao.x - 3;
-        }
-
-        if (key[ALLEGRO_KEY_D] && Joao.direction == PERSONAGEM_DIRECTIONS::LEFT) {
-            Joao.x = Joao.x + 3;
-        }
-
-        if (key[ALLEGRO_KEY_D]) {
-
-        }
-
-        if (Joao.state == PERSONAGEM_ACTIONS::FALLEN) {
-            printf("fallen...");
-        }
-
-        if (Joao.state == PERSONAGEM_ACTIONS::STOP) {
-            //printf("stop...");
-        }
-
-        if (Joao.state == PERSONAGEM_ACTIONS::JUMP) {
-           printf("jump...");
-        }
-
-        if (Joao.state == PERSONAGEM_ACTIONS::WALKING) {
-           printf("walking...");
-        }
     }
 }
 
@@ -399,11 +354,9 @@ void loadMap(string txtFile) {
 
 
 void drawMap() {
-
     while (!floorImage) {
         floorImage = al_load_bitmap("./images/floor2.png");
     }
-
 
     int clayContinueI;
     while (!clayImage) {
@@ -470,25 +423,15 @@ void drawMap() {
             if (value == MAP_FLOOR_INT) {
                 if (floorImage) {
                     al_draw_bitmap(floorImage, (column * 20) - 20 + MAP_MOVE, (line * 10), 0);
-
-                    /*for (int b = 0; b < 19; b++) {
-                        allFloor[line * 10 - 10][column * 20 + b + MAP_MOVE] = 1;
-                    }*/
                     position_vertically_floor.x = column * 20;
                     position_vertically_floor.y = (line * 10) - 10;
-                    /**
-                    provavel para encontrar a colisão no eixo vertical
-                    */
-                    //array_vertically_floor.push_back(position_vertically_floor);
                 }
             }
 
             // desenho a continuidade do chao
             if (value == MAP_INFINITE_FLOOR_INT) {
                 clayContinueI = ((GAME_HEIGHT - (line * 10)) / 20) + 2;
-
                 for(int i = 0; i <= clayContinueI; i++ ) {
-
                     if (clayImage) {
                         al_draw_bitmap(clayImage, (column * 20) + MAP_MOVE - 20, 10 + ((line + i) * 10), 0);
                     }
@@ -674,7 +617,6 @@ int main()
                     al_draw_bitmap(moonImage, 369, 167, 0);
                 }
                 //moveClouds(MAP_MOVE);
-                // drawFloor("map1.txt", MAP_MOVE);
                 processDelay();
                 drawMap();
 
@@ -718,11 +660,8 @@ int main()
                 if (Joao.state == PERSONAGEM_ACTIONS::JUMP) {
                     jumpPersonagem(&Joao);
                 }
-
-                // se parado ou andando, verificar se tem piso no chao, senao, cair denoovo kkkkk
                 //ghosts_action(MAP_MOVE);
-
-                al_draw_circle(Joao.x + 17.0, Joao.y, 3, al_map_rgb(255, 255, 255), 1);
+                //al_draw_circle(Joao.x + 17.0, Joao.y, 3, al_map_rgb(255, 255, 255), 1);
                 al_draw_textf(font, al_map_rgb(255, 255, 255), 10, 20, 0, "X: %f", Joao.x);
                 al_draw_textf(font, al_map_rgb(255, 255, 255), 150, 20, 0, "Y: %f", Joao.y);
                 al_draw_textf(font, al_map_rgb(255, 255, 255), 10, 40, 0, "MAP_MOVE: %d", MAP_MOVE);
