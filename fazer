@@ -1,6 +1,14 @@
+- fazer o ajuste de mover para direita, multiplo de 5, para nao ficar sobrepondo a imagem do solo (floor)
 - mapa deve andar pra baixo kkkkk ....
 - colisao lateral
 - fazer o save do jogo
+- implementar dialogos
+- colocar alguns sons
+- implementar um pulo pra baixo
+- adicionar vida ao hero
+- fazer um trampolim
+- fazer o movimento do personagem ser variavel, ao caminhar
+
 
 - fazer parede grandona de obstaculo, pensei que fazer uma image grande da parede
 - na hora que ele cai, precisa checar colisao com a lateral y tambem

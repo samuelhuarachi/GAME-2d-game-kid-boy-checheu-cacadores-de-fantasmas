@@ -2,7 +2,6 @@
 Observações:
 O personagem anda de 5 em 5, aparentemente
 */
-
 #include <allegro5/allegro.h>
 #include <allegro5/allegro_native_dialog.h>
 #include <allegro5/allegro_font.h>
@@ -23,9 +22,8 @@ O personagem anda de 5 em 5, aparentemente
 #include <array>
 #include <iterator>
 #include <cmath>
-
+#include <tuple>
 using namespace std;
-
 using std::cout;
 using std::cerr;
 using std::endl;
@@ -33,7 +31,6 @@ using std::string;
 using std::ifstream;
 using std::vector;
 #include <cstdlib>
-
 #include "global_variables.cpp"
 #include "clouds.cpp"
 #include "ghosts.cpp"
@@ -54,7 +51,7 @@ int get_column_in_snapshot_by_hero_x(float hero_x) {
     if (hero_x < 20) {
         column = 0;
     } else {
-        column = (int)(Joao.x / 20);
+        column = (int)round(hero_x / 20);
     }
 
     return column;
@@ -150,13 +147,26 @@ bool isDelayReadyForAction() {
     return false;
 }
 
-bool can_i_move_to_right(PERSONAGEM *p) {
+bool can_i_move(PERSONAGEM *p) {
     /**
     Verificar se tem colisao com as paredes da direita (colisao vertical, apenas com elementos a 1, e 2 nivel do solo);
     */
     int REACH_FLOOR_AJUST_NIVEL_1 = -1;
     int REACH_FLOOR_AJUST_NIVEL_2 = -3;
-    int column_snapshot = get_column_in_snapshot_by_hero_x(p->x) + 2;
+    int column_snapshot;
+    int MAP_AJUST_1 = 1;
+    int MAP_AJUST_2 = 2;
+    if (p->direction == PERSONAGEM_DIRECTIONS::LEFT) {
+        MAP_AJUST_1 = -1;
+        MAP_AJUST_2 = 0;
+    }
+
+    if (MAP_MOVE == 0) {
+        column_snapshot = get_column_in_snapshot_by_hero_x(p->x) + MAP_AJUST_1;
+    } else {
+        column_snapshot = get_column_in_snapshot_by_hero_x(p->x) + MAP_AJUST_2;
+    }
+
     int line_snapshot_lvl_1 = get_line_in_snapshot_by_hero_y(p->y) + REACH_FLOOR_AJUST_NIVEL_1;
     int line_snapshot_lvl_2 = get_line_in_snapshot_by_hero_y(p->y) + REACH_FLOOR_AJUST_NIVEL_2;
     int map_value_lvl_1 = map_snapshot[line_snapshot_lvl_1][column_snapshot];
@@ -172,11 +182,20 @@ bool am_i_pressing_right_key() {
     return am_i_pressing_key(key[ALLEGRO_KEY_D]);
 }
 
+bool am_i_pressing_left_key() {
+    return am_i_pressing_key(key[ALLEGRO_KEY_A]);
+}
+
+
 bool am_i_walking(PERSONAGEM *p) {
     return (p->state == PERSONAGEM_ACTIONS::WALKING);
 }
 
 void processWalking(PERSONAGEM *p) {
+
+    /**
+    That's part i'm check the floor collision
+    **/
     if(isMoveRightOrLeft() &&
        isPersonagemNotFallen() &&
        isPersonagemNotJump()
@@ -189,10 +208,16 @@ void processWalking(PERSONAGEM *p) {
         }
 
         /**
-        verificar a colisao com o chao ...
+            floor collision check bellow
         */
         int REACH_FLOOR_AJUST = 2;
-        int column_snapshot = get_column_in_snapshot_by_hero_x(p->x);
+        int column_snapshot;
+        if (p->direction == PERSONAGEM_DIRECTIONS::LEFT) {
+            column_snapshot= get_column_in_snapshot_by_hero_x(p->x);
+        } else {
+            column_snapshot= get_column_in_snapshot_by_hero_x(p->x + 100.0);
+        }
+
         int line_snapshot = get_line_in_snapshot_by_hero_y(p->y);
         int map_value = map_snapshot[line_snapshot + REACH_FLOOR_AJUST][column_snapshot];
         if (map_value == MAP_AIR_INT) {
@@ -200,18 +225,34 @@ void processWalking(PERSONAGEM *p) {
         }
     }
 
-    if (am_i_pressing_right_key() && can_i_move_to_right(p)) {
-        if (!isMaxLimitMoveRight(Joao)) {
-             p->x = p->x + 5;
-        } else {
-            moveMapToLeft();
-        }
+    /**
+    that's part i check vertical collision
+    */
+    if (am_i_pressing_right_key()) {
         p->direction = PERSONAGEM_DIRECTIONS::RIGHT;
+        if (can_i_move(p)) {
+            if (!isMaxLimitMoveRight(Joao)) {
+                 p->x = p->x + 5;
+            } else {
+                moveMapToLeft();
+            }
+        }
+    }
+
+    if (am_i_pressing_left_key()) {
+        p->direction = PERSONAGEM_DIRECTIONS::LEFT;
+        if(can_i_move(p)) {
+            if (MAP_MOVE < 0) {
+                MAP_MOVE = MAP_MOVE + MAP_MOVE_SPEED;
+            } else {
+                p->x = p->x - 5;
+            }
+        }
     }
 }
 
 void holdingKey() {
-    processMoveLeft();
+    // processMoveLeft();
     processWalking(&Joao);
 }
 
@@ -461,36 +502,57 @@ void drawMap() {
     DEBUG_TIMES_TO_RUN_COUNTER++;
 }
 
-void processing_joao_fallen() {
+// tuple for return two answers (// analysis future path)
+std::tuple<bool, int> __check_if_exists_future_collision(PERSONAGEM *p, int column) {
     int factor_fallen = 2;
-    // break pra nao cair infinito
-    if (Joao.y >= 1000.0) {
-        Joao.y = 1000.0;
-        Joao.state = PERSONAGEM_ACTIONS::STOP;
-        return;
-    }
-
-    // analysis path
-    // 1- checking column...
-    int column = get_column_in_snapshot_by_hero_x(Joao.x);
+    bool collision = false;
 
     // 2 - checking path (y axis)
-    int positionAjustMinor = get_line_in_snapshot_by_hero_y(Joao.y);
+    int positionAjustMinor = get_line_in_snapshot_by_hero_y(p->y);
 
     // 3 - finding collision
-    bool colission = false;
     for (int i = 0; i < factor_fallen; i++) {
         positionAjustMinor = positionAjustMinor + 1;
         int map_value = map_snapshot[positionAjustMinor][column];
 
+        // collision detected
         if (map_value == MAP_FLOOR_INT) {
-            Joao.y = (positionAjustMinor * 10) - 10;
-            Joao.state = STOP;
-            Joao.time = 0;
-            colission = true;
-            break;
+            collision = true;
+            return  std::make_tuple(collision, positionAjustMinor);
         }
     }
+
+    return  std::make_tuple(collision, positionAjustMinor);
+}
+
+void processing_hero_fallen() {
+    // break pra nao cair infinito
+    if (Joao.y >= 1200.0) {
+        Joao.y = 1200.0;
+        Joao.state = PERSONAGEM_ACTIONS::STOP;
+        return;
+    }
+
+    // 1- checking column...
+    int two_columns_check_1;
+    int two_columns_check_2;
+    two_columns_check_1 = get_column_in_snapshot_by_hero_x(Joao.x);
+    two_columns_check_2 = get_column_in_snapshot_by_hero_x(Joao.x + 19);
+
+    bool collision;
+    int positionAjustMinor;
+    tie(collision, positionAjustMinor) = __check_if_exists_future_collision(&Joao, two_columns_check_1);
+
+    if (!collision) {
+      tie(collision, positionAjustMinor) = __check_if_exists_future_collision(&Joao, two_columns_check_2);
+    }
+
+    if (collision) {
+        Joao.y = (positionAjustMinor * 10) - 10;
+        Joao.state = STOP;
+        Joao.time = 0;
+    }
+
     Joao.y = (positionAjustMinor * 10) - 10;
 }
 
@@ -650,7 +712,7 @@ int main()
                 }
 
                 if (Joao.state == PERSONAGEM_ACTIONS::FALLEN) {
-                    processing_joao_fallen();
+                    processing_hero_fallen();
                 }
 
                 if (Joao.state == PERSONAGEM_ACTIONS::JUMP) {
@@ -660,7 +722,7 @@ int main()
                 // se parado ou andando, verificar se tem piso no chao, senao, cair denoovo kkkkk
                 //ghosts_action(MAP_MOVE);
 
-                al_draw_circle(Joao.x, Joao.y, 3, al_map_rgb(255, 255, 255), 1);
+                al_draw_circle(Joao.x + 17.0, Joao.y, 3, al_map_rgb(255, 255, 255), 1);
                 al_draw_textf(font, al_map_rgb(255, 255, 255), 10, 20, 0, "X: %f", Joao.x);
                 al_draw_textf(font, al_map_rgb(255, 255, 255), 150, 20, 0, "Y: %f", Joao.y);
                 al_draw_textf(font, al_map_rgb(255, 255, 255), 10, 40, 0, "MAP_MOVE: %d", MAP_MOVE);
