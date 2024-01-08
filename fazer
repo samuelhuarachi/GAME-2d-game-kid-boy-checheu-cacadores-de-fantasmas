@@ -1,10 +1,10 @@
+- implementar um pulo pra baixo
 - fazer o ajuste de mover para direita, multiplo de 5, para nao ficar sobrepondo a imagem do solo (floor)
 - mapa deve andar pra baixo kkkkk ....
 - colisao lateral
 - fazer o save do jogo
 - implementar dialogos
 - colocar alguns sons
-- implementar um pulo pra baixo
 - adicionar vida ao hero
 - fazer um trampolim
 - fazer o movimento do personagem acelerado
@@ -20,3 +20,11 @@
 https://www.w3schools.com/cpp/cpp_classes.asp
 https://www.learncpp.com/cpp-tutorial/class-code-and-header-files/
 
+
+HISTORY
+
+- tipo rpg, contando um historia
+- jogo 2d com inimigos
+
+Pedro desapareceu, precisamos encontra-lo
+Todos estao em algum lugar procurando, e joao vai na floresta procurar o Pedro

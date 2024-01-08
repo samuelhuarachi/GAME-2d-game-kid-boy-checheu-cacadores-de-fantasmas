@@ -39,7 +39,7 @@ using std::vector;
 #include "functions.h"
 #include "introduction.cpp"
 #include "physical.h"
-
+#include "menu.cpp"
 // tutorial allegro 5 https://github.com/liballeg/allegro_wiki/wiki/Allegro-Vivace%3A-Graphics
 // physics 2D => http://chipmunk-physics.net/release/ChipmunkLatest-Docs/#Intro-HelloChipmunk
 /**
@@ -242,18 +242,20 @@ void holdingKey() {
 }
 
 void inGameKeyDown() {
-
-    if(
-       key[ALLEGRO_KEY_SPACE] &&
+    if(key[ALLEGRO_KEY_SPACE] &&
        isPersonagemNotJump() &&
-       isPersonagemNotFallen()
-    ){
+       isPersonagemNotFallen())
+    {
         Joao.state = PERSONAGEM_ACTIONS::JUMP;
+        al_play_sample(SOUND_HERO_JUMP, 0.3, 0, 1, ALLEGRO_PLAYMODE_ONCE, &SOUND_ID_HERO_JUMP);
+
+    } else if(key[ALLEGRO_KEY_ESCAPE]) {
+        cutscene = CUTSCENE::MENU;
     }
 }
 
 void loadingImages() {
-    moonImage = al_load_bitmap("./images/moon.png");
+    moonImage = al_load_bitmap("./images/moon4.png");
     joaoImage = al_load_bitmap("./images/joao_waiting.png");
     jowImage = al_load_bitmap("./images/jow.png");
     gleisonImage = al_load_bitmap("./images/gleison.png");
@@ -269,6 +271,7 @@ void loadingImages() {
     joaoRunningImage = al_load_bitmap("./images/joao_running.png");
     joaoFallImage = al_load_bitmap("./images/joao_fall.png");
     joaoJumpImage = al_load_bitmap("./images/joao_fall.png");
+    MENU_BACKGROUND = al_load_bitmap("./images/kid_boy_menu_art.jpg");
 }
 
 void introKeyDown() {
@@ -302,6 +305,8 @@ void destroyImagesAndAnothers() {
     al_destroy_bitmap(nightImage);
     al_destroy_bitmap(joaoRunningImage);
     al_destroy_bitmap(joaoFallImage);
+    al_destroy_bitmap(MENU_BACKGROUND);
+    al_destroy_sample(SOUND_HERO_JUMP);
 
     array_clouds.clear();
     array_vertically_floor.clear();
@@ -501,6 +506,7 @@ void processing_hero_fallen() {
 
 int main()
 {
+    menu_boot();
     /**
     criando uma instancia do meu Helper ...
     */
@@ -513,9 +519,8 @@ int main()
     if (!introAudio) {
         printf("nao carregaou a musica de introducao");
     }
-
-    joaoJumpSound = al_load_sample("./sounds/jump.ogg");
-    if (!joaoJumpSound) {
+    SOUND_HERO_JUMP = al_load_sample("./sounds/jump.ogg");
+    if (!SOUND_HERO_JUMP) {
         printf("nao carregaou o som de efeito do pulo");
     }
 
@@ -561,7 +566,6 @@ int main()
         {
             case ALLEGRO_EVENT_TIMER: // Holding key
                 redraw = true;
-
                 if (cutscene == CUTSCENE::INGAME) {
                     holdingKey();
                 }
@@ -575,10 +579,10 @@ int main()
 
                 if (cutscene == CUTSCENE::INGAME) {
                     inGameKeyDown();
-                }
-
-                if (cutscene == CUTSCENE::INTRO) {
+                } else if (cutscene == CUTSCENE::INTRO) {
                     introKeyDown();
+                } else if (cutscene == CUTSCENE::MENU) {
+                    menu_keydown();
                 }
 
                 break;
@@ -614,7 +618,7 @@ int main()
 
                 // draw moon
                 if (moonImage) {
-                    al_draw_bitmap(moonImage, 369, 167, 0);
+                    al_draw_bitmap(moonImage, 600, 100, 0);
                 }
                 //moveClouds(MAP_MOVE);
                 processDelay();
@@ -666,12 +670,11 @@ int main()
                 al_draw_textf(font, al_map_rgb(255, 255, 255), 150, 20, 0, "Y: %f", Joao.y);
                 al_draw_textf(font, al_map_rgb(255, 255, 255), 10, 40, 0, "MAP_MOVE: %d", MAP_MOVE);
                 al_draw_textf(font, al_map_rgb(255, 255, 255), 10, 130, 0, "state: %d", Joao.state);
-            }
-
-            /* ### INTRO ###*/
-            if (cutscene == CUTSCENE::INTRO) {
+            } else if (cutscene == CUTSCENE::INTRO) {
                 intro_timer_controller();
                 introduction_start(font);
+            } else if (cutscene == CUTSCENE::MENU) {
+                menu_rendering();
             }
 
             al_flip_display();

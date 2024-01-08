@@ -219,14 +219,13 @@ void introduction_start(ALLEGRO_FONT* font)
         //array_ghost[2] = ghost_2;
     }
 
+    al_draw_bitmap(moonImage, 650, 100, 0);
     draw_ghost();
     drawTreenAndFloor();
     drawClouds();
 
-
     if (houseAbandonedImage) {
         al_draw_bitmap(houseAbandonedImage, 320, (450 - houseAbandonedImageHeight), 0);
-
     }
 
     if (jowImage) {
@@ -244,25 +243,16 @@ void introduction_start(ALLEGRO_FONT* font)
     if (pedroImage) {
         al_draw_bitmap_region(pedroImage, 0, 0, 64, 64, 410, (450 - 64), 0);
     }
-
     animate_kid_boy_title();
-
-
     if (ghostImage) {
         //al_draw_bitmap(ghostImage, 200, 150, 0);
     }
 
-    al_draw_bitmap(moonImage, 30, 30, 0);
-
     INTRODUCTION_PRESTINY = 1;
-
     if (introTime % 2 == 0) {
         al_draw_text(font, al_map_rgb(255, 255, 255), 285, 550, 0, "Aperte \"Espaco\" para continuar");
     }
-
 }
-
-
 
 // ajustando os timers
 void intro_timer_controller()

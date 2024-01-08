@@ -76,12 +76,10 @@ void loadGhostsPosition(string mapFileName) {
 
 void ghosts_action(int MAP_MOVE = 0)
 {
-
     ALLEGRO_BITMAP* cloudBitmap;
     string fileName;
     char *cstr;
     float cloudColumnPosition;
-
 
     for (int i = 0; i < array_ghosts.size(); i++) {
 
@@ -90,25 +88,17 @@ void ghosts_action(int MAP_MOVE = 0)
         strcpy(cstr, fileName.c_str());
 
         //cloudColumnPosition = (array_ghosts[i].x * 10) + MAP_MOVE;
-
         cloudBitmap = al_load_bitmap(cstr);
         if (cloudBitmap) {
-
             al_draw_bitmap(cloudBitmap, array_ghosts[i].x * 20 + MAP_MOVE, (array_ghosts[i].y * 10) - array_ghosts[i].height, 0);
-
-
             //rangeMax
-
             if (array_ghosts[i].range >= 0) {
                 array_ghosts[i].x = array_ghosts[i].x - array_ghosts[i].speed;
                 array_ghosts[i].range = array_ghosts[i].range - 1;
             } else {
 
             }
-
-
         }
-
         delete [] cstr;
     }
 }
