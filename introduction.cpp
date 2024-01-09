@@ -7,7 +7,6 @@ int TITLE_KID_BOY_ANIMATION_POSITION = 300;
 
 //CLOUD_STRUCT arra1[2];
 
-
 vector<GHOST_STRUCT> array_ghost;
 
 void drawTreenAndFloor() {
@@ -225,7 +224,7 @@ void introduction_start(ALLEGRO_FONT* font)
     drawClouds();
 
     if (houseAbandonedImage) {
-        al_draw_bitmap(houseAbandonedImage, 320, (450 - houseAbandonedImageHeight), 0);
+        al_draw_bitmap(houseAbandonedImage, 320, (451 - houseAbandonedImageHeight), 0);
     }
 
     if (jowImage) {

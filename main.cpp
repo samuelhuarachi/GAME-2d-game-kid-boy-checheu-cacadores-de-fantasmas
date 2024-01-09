@@ -276,12 +276,12 @@ void loadingImages() {
 
 void introKeyDown() {
     if(key[ALLEGRO_KEY_SPACE]) {
-        cutscene = CUTSCENE::INGAME;
+        cutscene = CUTSCENE::MENU;
         al_stop_sample(&intro_sound_kbc);
         al_destroy_sample(introAudio);
         array_clouds.clear();
         //loadCloudsPosition("map1.txt");
-        loadGhostsPosition("map1.txt");
+        loadGhostsPosition("stage_1.txt");
     }
 }
 
@@ -307,6 +307,7 @@ void destroyImagesAndAnothers() {
     al_destroy_bitmap(joaoFallImage);
     al_destroy_bitmap(MENU_BACKGROUND);
     al_destroy_sample(SOUND_HERO_JUMP);
+    al_destroy_sample(SOUND_MENU_SELECT);
 
     array_clouds.clear();
     array_vertically_floor.clear();
@@ -517,11 +518,16 @@ int main()
     al_reserve_samples(10);
     introAudio = al_load_sample("./sounds/intro.ogg");
     if (!introAudio) {
-        printf("nao carregaou a musica de introducao");
+        printf("introAudio SOUND LOAD FAILED");
     }
     SOUND_HERO_JUMP = al_load_sample("./sounds/jump.ogg");
     if (!SOUND_HERO_JUMP) {
-        printf("nao carregaou o som de efeito do pulo");
+        printf("SOUND_HERO_JUMP SOUND LOAD FAILED");
+    }
+
+    SOUND_MENU_SELECT = al_load_sample("./sounds/menu/menu_select.ogg");
+    if (!SOUND_MENU_SELECT) {
+        printf("SOUND_MENU_SELECT SOUND LOAD FAILED");
     }
 
     timer = al_create_timer(1.0 / 60.0);
@@ -557,9 +563,9 @@ int main()
     /**
     carregando o mapa para o vetor
     */
-    string fase1 = "map1.txt";
+    string fase1 = "stage_1.txt";
     loadMap(fase1);
-    while(1)
+    while(GAME_EXIT == false)
     {
         al_wait_for_event(queue, &event);
         switch(event.type)

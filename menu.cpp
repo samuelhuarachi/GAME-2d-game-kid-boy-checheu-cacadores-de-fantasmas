@@ -54,9 +54,9 @@ void menu_rendering() {
             }
         } else if (option == MENU_OPTIONS::MENU_RESUME) {
             if (option == MENU_OPTION_SELECTED) {
-                al_draw_text(font, al_map_rgb(234, 234, 28), axis_x, axis_y + 20, 0, "Continuar o jogo");
+                al_draw_text(font, al_map_rgb(234, 234, 28), axis_x, axis_y + 20, 0, "Jogar / Continuar");
             } else {
-                al_draw_text(font, al_map_rgb(255, 255, 255), axis_x, axis_y + 20, 0, "Continuar o jogo");
+                al_draw_text(font, al_map_rgb(255, 255, 255), axis_x, axis_y + 20, 0, "Jogar / Continuar");
             }
         } else if (option == MENU_OPTIONS::MENU_EXIT) {
             if (option == MENU_OPTION_SELECTED) {
@@ -72,8 +72,18 @@ void menu_keydown() {
     if(key[ALLEGRO_KEY_ESCAPE]) {
         cutscene = CUTSCENE::INGAME;
     } else if (key[ALLEGRO_KEY_W]) {
+        al_play_sample(SOUND_MENU_SELECT, 0.3, 0, 1, ALLEGRO_PLAYMODE_ONCE, &SOUND_ID_MENU_SELECT);
         menu_option_previous();
     } else if (key[ALLEGRO_KEY_S]) {
+        al_play_sample(SOUND_MENU_SELECT, 0.3, 0, 1, ALLEGRO_PLAYMODE_ONCE, &SOUND_ID_MENU_SELECT);
         menu_option_next();
+    } else if (key[ALLEGRO_KEY_ENTER]) {
+        if (MENU_OPTION_SELECTED == MENU_OPTIONS::MENU_INTRO) {
+            cutscene = CUTSCENE::INTRO;
+        } else if (MENU_OPTION_SELECTED == MENU_OPTIONS::MENU_RESUME) {
+            cutscene = CUTSCENE::INGAME;
+        } else if (MENU_OPTION_SELECTED == MENU_OPTIONS::MENU_EXIT) {
+            GAME_EXIT = true;
+        }
     }
 }
