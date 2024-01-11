@@ -86,8 +86,6 @@ void ghosts_action(int MAP_MOVE = 0)
         fileName = array_ghosts[i].fileName;
         cstr = new char[fileName.length() + 1];
         strcpy(cstr, fileName.c_str());
-
-        //cloudColumnPosition = (array_ghosts[i].x * 10) + MAP_MOVE;
         cloudBitmap = al_load_bitmap(cstr);
         if (cloudBitmap) {
             al_draw_bitmap(cloudBitmap, array_ghosts[i].x * 20 + MAP_MOVE, (array_ghosts[i].y * 10) - array_ghosts[i].height, 0);

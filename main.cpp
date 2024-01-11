@@ -40,6 +40,7 @@ using std::vector;
 #include "introduction.cpp"
 #include "physical.h"
 #include "menu.cpp"
+#include "phase_1.cpp"
 // tutorial allegro 5 https://github.com/liballeg/allegro_wiki/wiki/Allegro-Vivace%3A-Graphics
 // physics 2D => http://chipmunk-physics.net/release/ChipmunkLatest-Docs/#Intro-HelloChipmunk
 /**
@@ -417,6 +418,7 @@ void drawMap() {
         for (int column = columnsVisionMin; column < columnsVisionMax; column++) {
             value = GAMEMAP[line][column];
 
+
             mapLine = line * 10 - 10;
             mapColumn = (column * 20) + MAP_MOVE - 20;
 
@@ -508,6 +510,7 @@ void processing_hero_fallen() {
 int main()
 {
     menu_boot();
+    phase_1_boot();
     /**
     criando uma instancia do meu Helper ...
     */
@@ -629,6 +632,7 @@ int main()
                 //moveClouds(MAP_MOVE);
                 processDelay();
                 drawMap();
+                phase_1_draw_npc();
 
                 // draw joao
                 if (joaoImage) {
@@ -676,6 +680,8 @@ int main()
                 al_draw_textf(font, al_map_rgb(255, 255, 255), 150, 20, 0, "Y: %f", Joao.y);
                 al_draw_textf(font, al_map_rgb(255, 255, 255), 10, 40, 0, "MAP_MOVE: %d", MAP_MOVE);
                 al_draw_textf(font, al_map_rgb(255, 255, 255), 10, 130, 0, "state: %d", Joao.state);
+
+
             } else if (cutscene == CUTSCENE::INTRO) {
                 intro_timer_controller();
                 introduction_start(font);
@@ -686,7 +692,9 @@ int main()
             al_flip_display();
             redraw = false;
         }
+
     }
     destroyImagesAndAnothers();
     return 0;
+
 }

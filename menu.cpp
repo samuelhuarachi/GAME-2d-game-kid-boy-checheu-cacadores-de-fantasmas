@@ -1,5 +1,3 @@
-
-
 std::vector<int> MENU_LIST_OPTIONS;
 
 enum MENU_OPTIONS {
@@ -11,7 +9,7 @@ enum MENU_OPTIONS {
 int MENU_OPTION_SELECTED;
 
 void menu_boot() {
-    cout << "menu booted" << endl;
+    cout << "Menu booted" << endl;
     MENU_LIST_OPTIONS.push_back(MENU_OPTIONS::MENU_INTRO);
     MENU_LIST_OPTIONS.push_back(MENU_OPTIONS::MENU_RESUME);
     MENU_LIST_OPTIONS.push_back(MENU_OPTIONS::MENU_EXIT);

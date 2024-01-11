@@ -66,6 +66,9 @@
 		<Unit filename="personagem.cpp">
 			<Option target="&lt;{~None~}&gt;" />
 		</Unit>
+		<Unit filename="phase_1.cpp">
+			<Option target="&lt;{~None~}&gt;" />
+		</Unit>
 		<Unit filename="physical.cpp" />
 		<Unit filename="physical.h" />
 		<Unit filename="src/Avatar.cpp" />

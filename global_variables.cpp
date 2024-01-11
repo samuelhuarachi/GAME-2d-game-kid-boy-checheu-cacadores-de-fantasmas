@@ -114,5 +114,13 @@ ALLEGRO_FONT* font;
 ALLEGRO_DISPLAY* disp;
 ALLEGRO_EVENT_QUEUE* queue;
 
-
 SpaceControl spaceControlPersonagem;
+
+typedef struct NPC_PERSONAGEM
+{
+    int column, line;
+    string fileName;
+    float life = 100;
+
+} NPC_PERSONAGEM;
+vector<NPC_PERSONAGEM> ARRAY_NPC;
