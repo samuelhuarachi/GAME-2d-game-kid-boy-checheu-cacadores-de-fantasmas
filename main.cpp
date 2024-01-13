@@ -174,7 +174,62 @@ bool am_i_walking(PERSONAGEM *p) {
     return (p->state == PERSONAGEM_ACTIONS::WALKING);
 }
 
+// tuple for return two answers (// analysis future path)
+std::tuple<bool, int> __check_if_exists_future_collision(PERSONAGEM *p, int column, int factor_fallen) {
+    bool collision = false;
+
+    // 2 - checking path (y axis)
+    int positionAjustMinor = get_line_in_snapshot_by_hero_y(p->y);
+
+    // 3 - finding collision
+    for (int i = 0; i < factor_fallen; i++) {
+        positionAjustMinor = positionAjustMinor + 1;
+        int map_value = map_snapshot[positionAjustMinor][column];
+
+        // collision detected
+        if (map_value == MAP_FLOOR_INT) {
+            collision = true;
+            return  std::make_tuple(collision, positionAjustMinor);
+        }
+    }
+
+    return  std::make_tuple(collision, positionAjustMinor);
+}
+
 void process_walking(PERSONAGEM *p) {
+
+    /**
+    that's part i check vertical collision in right
+    */
+    if (am_i_pressing_right_key()) {
+        p->direction = PERSONAGEM_DIRECTIONS::RIGHT;
+        if (can_i_move(p)) {
+            if (!isMaxLimitMoveRight(p)) {
+                 p->x = p->x + 3.5;
+            } else {
+                MAP_MOVE = MAP_MOVE - MAP_MOVE_SPEED;
+            }
+        } else {
+            return;
+        }
+    }
+
+    /**
+    that's part i check vertical collision in left
+    */
+    if (am_i_pressing_left_key()) {
+        p->direction = PERSONAGEM_DIRECTIONS::LEFT;
+        if(can_i_move(p)) {
+            if (MAP_MOVE < 0) {
+                MAP_MOVE = MAP_MOVE + MAP_MOVE_SPEED;
+            } else {
+                p->x = p->x - 3.5;
+            }
+        } else {
+            return;
+        }
+    }
+
 
     /**
     That's part i'm check the floor collision
@@ -193,46 +248,20 @@ void process_walking(PERSONAGEM *p) {
         /**
             floor collision check bellow
         */
-        int REACH_FLOOR_AJUST = 2;
-        int column_snapshot;
-        if (p->direction == PERSONAGEM_DIRECTIONS::LEFT) {
-            column_snapshot= get_column_in_snapshot_by_hero_x(p->x);
-        } else {
-            column_snapshot= get_column_in_snapshot_by_hero_x(p->x + 100.0);
+        int two_columns_check_1;
+        int two_columns_check_2;
+        two_columns_check_1 = get_column_in_snapshot_by_hero_x(p->x);
+        two_columns_check_2 = get_column_in_snapshot_by_hero_x(p->x + 19);
+        int factor_fallen = 2;
+        bool collision;
+        int positionAjustMinor;
+        tie(collision, positionAjustMinor) = __check_if_exists_future_collision(p, two_columns_check_1, factor_fallen);
+        if (!collision) {
+          tie(collision, positionAjustMinor) = __check_if_exists_future_collision(p, two_columns_check_2, factor_fallen);
         }
 
-        int line_snapshot = get_line_in_snapshot_by_hero_y(p->y);
-        int map_value = map_snapshot[line_snapshot + REACH_FLOOR_AJUST][column_snapshot];
-        if (map_value == MAP_AIR_INT) {
+        if (!collision) {
             p->state = PERSONAGEM_ACTIONS::FALLEN;
-        }
-    }
-
-    /**
-    that's part i check vertical collision in right
-    */
-    if (am_i_pressing_right_key()) {
-        p->direction = PERSONAGEM_DIRECTIONS::RIGHT;
-        if (can_i_move(p)) {
-            if (!isMaxLimitMoveRight(p)) {
-                 p->x = p->x + 3.5;
-            } else {
-                MAP_MOVE = MAP_MOVE - MAP_MOVE_SPEED;
-            }
-        }
-    }
-
-    /**
-    that's part i check vertical collision in left
-    */
-    if (am_i_pressing_left_key()) {
-        p->direction = PERSONAGEM_DIRECTIONS::LEFT;
-        if(can_i_move(p)) {
-            if (MAP_MOVE < 0) {
-                MAP_MOVE = MAP_MOVE + MAP_MOVE_SPEED;
-            } else {
-                p->x = p->x - 3.5;
-            }
         }
     }
 }
@@ -453,28 +482,7 @@ void drawMap() {
     DEBUG_TIMES_TO_RUN_COUNTER++;
 }
 
-// tuple for return two answers (// analysis future path)
-std::tuple<bool, int> __check_if_exists_future_collision(PERSONAGEM *p, int column) {
-    int factor_fallen = 2;
-    bool collision = false;
 
-    // 2 - checking path (y axis)
-    int positionAjustMinor = get_line_in_snapshot_by_hero_y(p->y);
-
-    // 3 - finding collision
-    for (int i = 0; i < factor_fallen; i++) {
-        positionAjustMinor = positionAjustMinor + 1;
-        int map_value = map_snapshot[positionAjustMinor][column];
-
-        // collision detected
-        if (map_value == MAP_FLOOR_INT) {
-            collision = true;
-            return  std::make_tuple(collision, positionAjustMinor);
-        }
-    }
-
-    return  std::make_tuple(collision, positionAjustMinor);
-}
 
 void processing_hero_fallen() {
     // break pra nao cair infinito
@@ -485,26 +493,52 @@ void processing_hero_fallen() {
     }
 
     // 1- checking column...
+    // Explain two columns
+    /*
+        column of right foot and
+        column of left foot
+    */
     int two_columns_check_1;
     int two_columns_check_2;
     two_columns_check_1 = get_column_in_snapshot_by_hero_x(Joao.x);
     two_columns_check_2 = get_column_in_snapshot_by_hero_x(Joao.x + 19);
 
+    /**
+        calculating factor fallen
+    */
+    double acelleration = 0.8;
+    double v0 = 0;
+    Joao.time = Joao.time + 0.3;
+    double s_position = PhysicalMUV_S(acelleration, v0, Joao.time);
+    if (s_position > 8) {
+        s_position = 8;
+    }
+
+    int factor_fallen = trunc(s_position);
+    if (s_position < 0) {
+        s_position = s_position * -1;
+    }
+    if (factor_fallen < 0) {
+        factor_fallen = factor_fallen * -1;
+    }
+
+
     bool collision;
     int positionAjustMinor;
-    tie(collision, positionAjustMinor) = __check_if_exists_future_collision(&Joao, two_columns_check_1);
+    tie(collision, positionAjustMinor) = __check_if_exists_future_collision(&Joao, two_columns_check_1, factor_fallen);
 
     if (!collision) {
-      tie(collision, positionAjustMinor) = __check_if_exists_future_collision(&Joao, two_columns_check_2);
+      tie(collision, positionAjustMinor) = __check_if_exists_future_collision(&Joao, two_columns_check_2, factor_fallen);
     }
 
     if (collision) {
         Joao.y = (positionAjustMinor * 10) - 10;
         Joao.state = STOP;
         Joao.time = 0;
+        return;
     }
 
-    Joao.y = (positionAjustMinor * 10) - 10;
+    Joao.y = Joao.y + s_position;
 }
 
 int main()

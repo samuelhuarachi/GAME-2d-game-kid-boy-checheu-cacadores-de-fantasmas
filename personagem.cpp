@@ -79,12 +79,16 @@ bool isMaxLimitMoveRight(PERSONAGEM *p) {
 
 void jumpPersonagem(PERSONAGEM *p) {
     p->time = p->time + 1.0;
-    double s_position = PhysicalMUV_S(p->aceleration, 7.0, p->time);
+    double v0 = 20.0;
+    double s_position = PhysicalMUV_S(p->aceleration, v0, p->time);
 
     if (p->last_muv_s < s_position) {
-         p->y = p->y - s_position;
+         p->y = p->y - (s_position - p->last_muv_s);
+         p->last_muv_s = s_position;
     } else {
         p->state = PERSONAGEM_ACTIONS::FALLEN;
+        p->time = 0;
+        p->last_muv_s = 0;
     }
 }
 
@@ -94,7 +98,7 @@ void inicializePersonagem(PERSONAGEM *p) {
     p->topSpeed = 10;
     p->topAceleration = 5;
     p->speed = 0;
-    p->aceleration = -1.5;
+    p->aceleration = -1.6;
     p->time = 0;
     p->last_muv_s = 0;
 }
