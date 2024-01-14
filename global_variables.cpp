@@ -47,6 +47,7 @@ ALLEGRO_BITMAP* clayImage;
 ALLEGRO_BITMAP* joaoRunningImage;
 ALLEGRO_BITMAP* joaoFallImage;
 ALLEGRO_BITMAP* joaoJumpImage;
+ALLEGRO_BITMAP* AL_BITMAP_SR_FROG;
 ALLEGRO_BITMAP* MENU_BACKGROUND;
 ALLEGRO_SAMPLE_ID intro_sound_kbc;
 ALLEGRO_SAMPLE_ID SOUND_ID_HERO_JUMP;
@@ -67,6 +68,7 @@ int map_snapshot[60][41];
 int GAMEMAP[1000][10000];
 int DELAY_JUMP_JOAO_CURRENT = 0;
 int MAP_MOVE = 0;
+int NPC_ACTIVE_INDEX = -1; // -1 means doest not exist active NPC
 
 string directionCloudMove = "left";
 
@@ -121,6 +123,8 @@ typedef struct NPC_PERSONAGEM
     int column, line;
     string fileName;
     float life = 100;
+    int height;
+    string name;
 
 } NPC_PERSONAGEM;
 vector<NPC_PERSONAGEM> ARRAY_NPC;

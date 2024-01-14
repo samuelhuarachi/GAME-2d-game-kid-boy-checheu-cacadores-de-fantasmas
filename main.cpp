@@ -40,28 +40,11 @@ using std::vector;
 #include "introduction.cpp"
 #include "physical.h"
 #include "menu.cpp"
+#include "npc3.cpp"
 #include "phase_1.cpp"
 // tutorial allegro 5 https://github.com/liballeg/allegro_wiki/wiki/Allegro-Vivace%3A-Graphics
 // physics 2D => http://chipmunk-physics.net/release/ChipmunkLatest-Docs/#Intro-HelloChipmunk
-/**
-Essa funcao recebe o eixo x (eixo x, eixo das colunas) do personagem, e
-retorna a posicao dele no snapshot do mapa
-*/
-int get_column_in_snapshot_by_hero_x(float hero_x) {
-    int column;
-    if (hero_x < 20) {
-        column = 0;
-    } else {
-        column = (int)round(hero_x / 20);
-    }
 
-    return column;
-}
-
-int get_line_in_snapshot_by_hero_y(float hero_y) {
-    float position = hero_y;
-    return trunc((position / 10));
-}
 
 void defaultLoad() {
     allegro_inicializar();
@@ -281,6 +264,8 @@ void inGameKeyDown() {
 
     } else if(key[ALLEGRO_KEY_ESCAPE]) {
         cutscene = CUTSCENE::MENU;
+    } else if (key[ALLEGRO_KEY_E]) {
+        npc_interact();
     }
 }
 
@@ -302,6 +287,7 @@ void loadingImages() {
     joaoFallImage = al_load_bitmap("./images/joao_fall.png");
     joaoJumpImage = al_load_bitmap("./images/joao_fall.png");
     MENU_BACKGROUND = al_load_bitmap("./images/kid_boy_menu_art.jpg");
+    AL_BITMAP_SR_FROG = al_load_bitmap("./images/frog.png");
 }
 
 void introKeyDown() {
@@ -338,7 +324,7 @@ void destroyImagesAndAnothers() {
     al_destroy_bitmap(MENU_BACKGROUND);
     al_destroy_sample(SOUND_HERO_JUMP);
     al_destroy_sample(SOUND_MENU_SELECT);
-
+    al_destroy_bitmap(AL_BITMAP_SR_FROG);
     array_clouds.clear();
     array_vertically_floor.clear();
 }
@@ -520,7 +506,6 @@ void processing_hero_fallen() {
     bool collision;
     int positionAjustMinor;
     tie(collision, positionAjustMinor) = __check_if_exists_future_collision(&Joao, two_columns_check_1, factor_fallen);
-
     if (!collision) {
       tie(collision, positionAjustMinor) = __check_if_exists_future_collision(&Joao, two_columns_check_2, factor_fallen);
     }
@@ -661,7 +646,7 @@ int main()
                 //moveClouds(MAP_MOVE);
                 processDelay();
                 drawMap();
-                phase_1_draw_npc();
+                phase_1_draw_npc(&Joao);
 
                 // draw joao
                 if (joaoImage) {

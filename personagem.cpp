@@ -102,3 +102,23 @@ void inicializePersonagem(PERSONAGEM *p) {
     p->time = 21;
     p->last_muv_s = 199;
 }
+
+/**
+Essa funcao recebe o eixo x (eixo x, eixo das colunas) do personagem, e
+retorna a posicao dele no snapshot do mapa
+*/
+int get_column_in_snapshot_by_hero_x(float hero_x) {
+    int column;
+    if (hero_x < 20) {
+        column = 0;
+    } else {
+        column = (int)round(hero_x / 20);
+    }
+
+    return column;
+}
+
+int get_line_in_snapshot_by_hero_y(float hero_y) {
+    float position = hero_y;
+    return trunc(position / 10);
+}
