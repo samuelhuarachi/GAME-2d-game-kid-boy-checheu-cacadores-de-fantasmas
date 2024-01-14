@@ -99,6 +99,6 @@ void inicializePersonagem(PERSONAGEM *p) {
     p->topAceleration = 5;
     p->speed = 0;
     p->aceleration = -1.6;
-    p->time = 0;
-    p->last_muv_s = 0;
+    p->time = 21;
+    p->last_muv_s = 199;
 }

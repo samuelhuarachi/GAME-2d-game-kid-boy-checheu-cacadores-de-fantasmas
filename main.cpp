@@ -506,22 +506,16 @@ void processing_hero_fallen() {
     /**
         calculating factor fallen
     */
-    double acelleration = 0.8;
     double v0 = 0;
-    Joao.time = Joao.time + 0.3;
-    double s_position = PhysicalMUV_S(acelleration, v0, Joao.time);
-    if (s_position > 8) {
-        s_position = 8;
+    double s_position = PhysicalMUV_S(Joao.aceleration * -1, v0, Joao.time);
+    int factor_fallen = round(s_position - Joao.last_muv_s);
+    double factor_fallen_double = s_position - Joao.last_muv_s;
+    Joao.last_muv_s = s_position;
+    Joao.time = Joao.time + 1;
+    if (factor_fallen_double > 8) {
+        factor_fallen = 8;
+        factor_fallen_double = 8;
     }
-
-    int factor_fallen = trunc(s_position);
-    if (s_position < 0) {
-        s_position = s_position * -1;
-    }
-    if (factor_fallen < 0) {
-        factor_fallen = factor_fallen * -1;
-    }
-
 
     bool collision;
     int positionAjustMinor;
@@ -535,10 +529,11 @@ void processing_hero_fallen() {
         Joao.y = (positionAjustMinor * 10) - 10;
         Joao.state = STOP;
         Joao.time = 0;
+        Joao.last_muv_s = 0;
         return;
     }
 
-    Joao.y = Joao.y + s_position;
+    Joao.y = Joao.y + factor_fallen_double;
 }
 
 int main()
