@@ -35,6 +35,7 @@ typedef struct PERSONAGEM
     double JUMP_TIME = 12; /** por isso ele começa caindo no começo do jogo **/
     float initial_y_in_start_jump = 0; /** guarda a posicao y no inicio do pulo */
     double gravity_aceleration = -2.5;
+    string name;
 
 } PERSONAGEM;
 PERSONAGEM Joao;
@@ -101,6 +102,7 @@ void inicializePersonagem(PERSONAGEM *p) {
     p->aceleration = -1.6;
     p->time = 21;
     p->last_muv_s = 199;
+    p->name = "Joao";
 }
 
 /**

@@ -63,6 +63,9 @@
 			<Option target="&lt;{~None~}&gt;" />
 		</Unit>
 		<Unit filename="main.cpp" />
+		<Unit filename="npc3.cpp">
+			<Option target="&lt;{~None~}&gt;" />
+		</Unit>
 		<Unit filename="personagem.cpp">
 			<Option target="&lt;{~None~}&gt;" />
 		</Unit>

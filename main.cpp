@@ -1,6 +1,9 @@
 /*
 Observações:
 O personagem anda de 5 em 5, aparentemente
+
+tutorial allegro 5 https://github.com/liballeg/allegro_wiki/wiki/Allegro-Vivace%3A-Graphics
+physics 2D => http://chipmunk-physics.net/release/ChipmunkLatest-Docs/#Intro-HelloChipmunk
 */
 #include <allegro5/allegro.h>
 #include <allegro5/allegro_native_dialog.h>
@@ -42,9 +45,6 @@ using std::vector;
 #include "menu.cpp"
 #include "npc3.cpp"
 #include "phase_1.cpp"
-// tutorial allegro 5 https://github.com/liballeg/allegro_wiki/wiki/Allegro-Vivace%3A-Graphics
-// physics 2D => http://chipmunk-physics.net/release/ChipmunkLatest-Docs/#Intro-HelloChipmunk
-
 
 void defaultLoad() {
     allegro_inicializar();
@@ -135,8 +135,8 @@ bool can_i_move(PERSONAGEM *p) {
 
     int line_snapshot_lvl_1 = get_line_in_snapshot_by_hero_y(p->y) + REACH_FLOOR_AJUST_NIVEL_1;
     int line_snapshot_lvl_2 = get_line_in_snapshot_by_hero_y(p->y) + REACH_FLOOR_AJUST_NIVEL_2;
-    int map_value_lvl_1 = map_snapshot[line_snapshot_lvl_1][column_snapshot];
-    int map_value_lvl_2 = map_snapshot[line_snapshot_lvl_2][column_snapshot];
+    int map_value_lvl_1 = MAP_SNAPSHOT[line_snapshot_lvl_1][column_snapshot];
+    int map_value_lvl_2 = MAP_SNAPSHOT[line_snapshot_lvl_2][column_snapshot];
 
     if (map_value_lvl_1 == MAP_FLOOR_INT || map_value_lvl_2 == MAP_FLOOR_INT) {
         return false;
@@ -152,7 +152,6 @@ bool am_i_pressing_left_key() {
     return am_i_pressing_key(key[ALLEGRO_KEY_A]);
 }
 
-
 bool am_i_walking(PERSONAGEM *p) {
     return (p->state == PERSONAGEM_ACTIONS::WALKING);
 }
@@ -167,7 +166,7 @@ std::tuple<bool, int> __check_if_exists_future_collision(PERSONAGEM *p, int colu
     // 3 - finding collision
     for (int i = 0; i < factor_fallen; i++) {
         positionAjustMinor = positionAjustMinor + 1;
-        int map_value = map_snapshot[positionAjustMinor][column];
+        int map_value = MAP_SNAPSHOT[positionAjustMinor][column];
 
         // collision detected
         if (map_value == MAP_FLOOR_INT) {
@@ -182,7 +181,7 @@ std::tuple<bool, int> __check_if_exists_future_collision(PERSONAGEM *p, int colu
 void process_walking(PERSONAGEM *p) {
 
     /**
-    that's part i check vertical collision in right
+    that's part i check vertical collision to right
     */
     if (am_i_pressing_right_key()) {
         p->direction = PERSONAGEM_DIRECTIONS::RIGHT;
@@ -198,7 +197,7 @@ void process_walking(PERSONAGEM *p) {
     }
 
     /**
-    that's part i check vertical collision in left
+    that's part i check vertical collision to left
     */
     if (am_i_pressing_left_key()) {
         p->direction = PERSONAGEM_DIRECTIONS::LEFT;
@@ -406,7 +405,7 @@ void drawMap() {
     */
     for (int i = 0; i < 60; i++) {
         for (int j = 0; j < 41; j++) {
-            map_snapshot[i][j] = 0;
+            MAP_SNAPSHOT[i][j] = 0;
         }
     }
 
@@ -440,7 +439,7 @@ void drawMap() {
             /*
             don't snapshot when hero stay stopped
             */
-            map_snapshot[line][column - columnsVisionMin] = value;
+            MAP_SNAPSHOT[line][column - columnsVisionMin] = value;
 
             // desenho o chao
             if (value == MAP_FLOOR_INT) {
@@ -467,8 +466,6 @@ void drawMap() {
 
     DEBUG_TIMES_TO_RUN_COUNTER++;
 }
-
-
 
 void processing_hero_fallen() {
     // break pra nao cair infinito
@@ -688,6 +685,7 @@ int main()
                 if (Joao.state == PERSONAGEM_ACTIONS::JUMP) {
                     jumpPersonagem(&Joao);
                 }
+
                 //ghosts_action(MAP_MOVE);
                 //al_draw_circle(Joao.x + 17.0, Joao.y, 3, al_map_rgb(255, 255, 255), 1);
                 al_draw_textf(font, al_map_rgb(255, 255, 255), 10, 20, 0, "X: %f", Joao.x);
@@ -695,6 +693,8 @@ int main()
                 al_draw_textf(font, al_map_rgb(255, 255, 255), 10, 40, 0, "MAP_MOVE: %d", MAP_MOVE);
                 al_draw_textf(font, al_map_rgb(255, 255, 255), 10, 130, 0, "state: %d", Joao.state);
 
+                al_draw_filled_rectangle(200, 200, 600, 280, al_map_rgb(0, 0, 0));
+                al_draw_rectangle(200, 200, 600, 280, al_map_rgb(255, 255, 255), 1);
 
             } else if (cutscene == CUTSCENE::INTRO) {
                 intro_timer_controller();

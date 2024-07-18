@@ -64,7 +64,7 @@ int floor3ImageHeight = 20;
 
 int allVerticallyFloor[2000][2000];
 int allFloor[2000][2000];
-int map_snapshot[60][41];
+int MAP_SNAPSHOT[60][41];
 int GAMEMAP[1000][10000];
 int DELAY_JUMP_JOAO_CURRENT = 0;
 int MAP_MOVE = 0;

@@ -11,8 +11,19 @@ bool npc_can_i_desactive_npc(int columnsVisionMin, int hero_column, int hero_lin
 void npc_interact() {
     if (NPC_ACTIVE_INDEX == -1) {
         cout << "nenhum npc para interagir" << endl;
-    } else {
-        const NPC_PERSONAGEM npc_personage = ARRAY_NPC[NPC_ACTIVE_INDEX];
-        cout << "Olá " << npc_personage.name << ", podemos conversar?" << endl;
+        return;
     }
+
+    const NPC_PERSONAGEM npc_personage = ARRAY_NPC[NPC_ACTIVE_INDEX];
+    cout << "Olá " << npc_personage.name << ", podemos conversar?" << endl;
+
+    // ** travar controles
+    // ** travar cenario
+    // ** desenrolar cena
+    // ** part 1 - missao: encontrar a chave para destravar o portao
+    // ** criar a condicao para nao prosseguir ate encontrar a chave
+    // ** part 1 - encontrar pistas do Pedro?
+    // ** variaveis globais, para a phase, e para parte
+    // ** criar inventário para guardar itens
+    // ** tecla e para processeguir com a conversa
 }
